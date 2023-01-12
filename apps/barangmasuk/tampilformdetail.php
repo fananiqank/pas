@@ -24,7 +24,7 @@
                <input type="text" class="form-control input-sm" name="harga" id="harga" placeholder="harga" style="max-width: 100%" onkeyup="htjual(this.value)">
         </div>
         <div class="col-sm-2">
-               <input type="text" class="form-control input-sm" name="hargajual" id="hargajual" placeholder="harga Jual" style="max-width: 100%" readonly>
+               <input type="text" class="form-control input-sm" name="hargajual" id="hargajual" placeholder="harga Jual" style="max-width: 100%">
         </div>
         <div class="col-sm-2">
             <select class="select2" id="jenisbrg" name="jenisbrg">

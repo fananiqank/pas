@@ -54,10 +54,10 @@ if($_GET[act]=='save'){
 	
 
 
-} else if($_GET[act]=='hapushaul'){
+} else if($_GET[act]=='hapussolar'){
 	
-	$dt=$db->delete("tx_ritase",array("txangkut_id"=> $_GET[id]));
-	$dt2=$db->delete("tx_ritase_dtl",array("txangkut_id"=> $_GET[id]));
+	$dt=$db->delete("tx_solar",array("txsolar_id"=> $_GET[id]));
+	$dt2=$db->delete("tx_solar_dtl",array("txsolar_id"=> $_GET[id]));
 	if($dt && $dt2){
 		echo "Telah Dihapus";
 	} else {

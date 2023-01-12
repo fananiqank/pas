@@ -115,9 +115,10 @@ $(document).on('click','#detailrh',function(e){
                 }   
             );
 });
-function hapushaul(a){
+function hapussolar(a){
     // alert(a);
-    $.get( "apps/trxsolar/proses.php?act=hapushaul&id="+a, function( data ) {
+    
+    $.get( "apps/trxsolar/proses.php?act=hapussolar&id="+a, function( data ) {
         // $( ".result" ).html( data );
         alert(data);
         $('#ritasesolar').DataTable().ajax.reload();

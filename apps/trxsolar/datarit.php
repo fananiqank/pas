@@ -61,7 +61,7 @@ $columns = array(
 		  ),
 	array('db'      => 'txsolar_id','dt'   => 5, 'field' => 'txsolar_id',
 		   'formatter' => function( $d, $row ) {
-			return "<a href='javascript:void(0)' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh\">Detail</a> | <a href='javascript:void(0)' onclick=\"hapushaul($d)\" >Hapus</a>";
+			return "<a href='javascript:void(0)' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh\">Detail</a> | <a href='javascript:void(0)' onclick=\"hapussolar($d)\" >Hapus</a>";
 			// return "";
 			
 					 
