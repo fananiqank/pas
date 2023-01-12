@@ -1,0 +1,67 @@
+
+<script type="text/javascript">
+
+$('#invoicelist').DataTable( {
+        "processing": true,
+        "serverSide": true,
+        //"ajax": "../server_side/scripts/server_processing.php" NOTE: use serverside script to fatch the data
+        "ajax": "apps/trxkehadiran/databasicpremi.php"
+    } );
+
+$(document).ready(function(){
+    $('#form input,#form select, #form select2 , #form textarea').jqBootstrapValidation({
+        preventSubmit: true,
+        submitSuccess: function($form, event){     
+            event.preventDefault();
+            var data = $('#form').serializeFormJSON();        
+            $('#prosesloading').html('<img src="../assets/images/loading.gif">');
+            $.post('apps/trxkehadiran/proses.php?act=post',data,
+                function(msg) {
+                    if(msg!==""){alert(msg);}
+                    
+                   window.location="index.php?x=trxkehadiran";
+                   
+                    // location.reload();
+                   // swal({
+                   //       title: "Konfirmasi!",
+                   //       text: msg,
+                   //       type: "success"
+                   //       //timer: 1000
+                   //    });
+                }
+            );
+      },
+      submitError: function ($form, event, errors) { 
+         alert("Data Belum Lengkap");
+     }
+    });
+});
+
+function detailpremi(){
+        if($('#tglhadir').val() != '' && $('#id_site').val() != '' && $('#bpshift').val() != '')
+        {
+            var data = $('#form').serializeFormJSON();        
+            
+            $.post('apps/trxkehadiran/detailpremi.php?act=save',data,
+                function(msg) {
+                    $('#detailinvoice').html(msg);
+                }
+            );
+        } else {
+            alert("Harap isi Tanggal,Site & Shift!!");
+        }
+}
+
+
+
+
+$(document).on('click','#detailrh',function(e){
+    e.preventDefault();
+        $("#defaultSize").modal('show');
+        $.post('apps/trxkehadiran/detailrh.php?id='+$(this).attr("data-id"),
+                function(html){
+                $("#jarakubahhis").html(html);
+                }   
+            );
+});
+</script>

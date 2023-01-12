@@ -1,0 +1,6 @@
+.sthead {
+	position: sticky; top: 0; z-index: 1;background-color: #ffffff;
+}
+.sthead .tr .th {
+  border-bottom: 1px solid #000000;
+}
