@@ -38,12 +38,12 @@ $(document).ready(function(){
                    $('.rst1').val(null).trigger('change');
                    $('#stokshow').html('');
                     // location.reload();
-                   // swal({
-                   //       title: "Konfirmasi!",
-                   //       text: msg,
-                   //       type: "success"
-                   //       //timer: 1000
-                   //    });
+                   swal({
+                         title: "Input",
+                         text: msg,
+                         type: "success"
+                         //timer: 1000
+                      });
                 }
             );
       },

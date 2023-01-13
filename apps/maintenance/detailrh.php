@@ -22,9 +22,18 @@ foreach($db->select("(SELECT @rownum:=@rownum+1 norut, b.arm_norangka,b.arm_nopo
                 <th>No Lambung</th>
                 <th><?=$val2[arm_nolambung]?></th>
             </tr>
+            <tr>
+                <th colspan="4"><input id="myInputmodalbyprocess" type="text" placeholder="Search.." style="float: right;margin-right: 2%" ></th>
+            </tr>
         </thead>
     </table>
-     <input id="myInputmodalbyprocess" type="text" placeholder="Search.." style="float: right;margin-right: 2%" >
+
+    
+    <hr>
+</div>
+     
+<div class="pre-scrollable">
+        
     <table class="table" id="modsumwip2">
         <thead>
             <tr>
@@ -36,7 +45,7 @@ foreach($db->select("(SELECT @rownum:=@rownum+1 norut, b.arm_norangka,b.arm_nopo
         </thead>
         <tbody >
            
-</div>
+
 <?php
 $no=1;
 foreach($db->select("(SELECT @rownum:=@rownum+1 norut, a.*,DATE(a.tgl_mtc) as tglshow,b.arm_norangka,b.arm_nopol,b.arm_nolambung,supp_nama FROM tx_maintenance a JOIN m_armada b ON a.arm_id=b.arm_id JOIN (SELECT @rownum:=0) r JOIN m_supplier c on a.supp_mtc=c.supp_id where a.arm_id='$_GET[id]' order by id_mtc desc) a","*") as $val){
@@ -56,7 +65,9 @@ foreach($db->select("(SELECT @rownum:=@rownum+1 norut, a.*,DATE(a.tgl_mtc) as tg
             </tr>
             ";       
  } ?>
-
+</tbody>
+</table>
+</div>
 <script type="text/javascript">
     $(document).ready(function(){
         $("#myInputmodalbyprocess").on("keyup", function() {

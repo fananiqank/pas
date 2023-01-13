@@ -147,8 +147,6 @@ if($_GET[act]=='save'){
 				
 		}
 
-
-
 	$db->query("
 			update tx_maintenancedtl set
 				id_mtc = $idmtc,
