@@ -78,8 +78,11 @@ $columns = array(
 		  ),
 	array('db'      => 'id_mtcdtl','dt'   => 5, 'field' => 'id_mtcdtl',
 		   'formatter' => function( $d, $row ) {
-			return "<a href='javascript:void(0)' onclick='delCart($d)'>Del</a>";
-			
+		   	if($_GET['idmtc'] == ''){
+				return "<a href='javascript:void(0)' onclick='delCart($d)'>Del</a>";
+			} else {
+				return "";
+			}
 					 
 			}
 		  ),
