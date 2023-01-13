@@ -163,61 +163,22 @@ $pdf->Cell(40, 5, '( Rp ) ', 1, 0, 'C');
 $pdf->Cell(0, 5, '', 1, 1, 'C'); //CELL BARIS Bawah
 
 $no =1;
-foreach($db->select("(select *, @rownum:=@rownum+1 norut,sum(invdtl_ritase)as ritaseTot, ROUND(sum(invdtl_tonase),2)as tonaseTot, ROUND(sum(invdtl_jumlah),2)as hargaTot
-  from tx_invoice_dtl a JOIN (SELECT @rownum:=0) b 
-  where inv_id='$_GET[id]' group by invdtl_uraian) a","*") as $val){
+foreach($db->select("(select *, @rownum:=@rownum+1 norut from tx_invoice_dtl a JOIN (SELECT @rownum:=0) b where inv_id='$_GET[id]') a","*") as $val){
 
-  $x =1;
-  foreach($db->select("(select *, @rownum:=@rownum+1 norut from tx_invoice_dtl a JOIN (SELECT @rownum:=0) b where inv_id='$_GET[id]' and invdtl_uraian = '$val[invdtl_uraian]' ) a","*") as $value){
-   $pdf->SetFont('Arial','',8);
-   $pdf->Cell(10, 5, $value[norut], 1, 0, 'C');
-   $pdf->Cell(40, 5, $value[invdtl_uraian], 1, 0, 'L');
-   $pdf->Cell(20, 5, number_format($value[invdtl_ritase],0), 1, 0, 'R');
-   $pdf->Cell(30, 5, number_format($value[invdtl_tonase],2), 1, 0, 'R');
-   $pdf->Cell(20, 5, round($value[invdtl_jarak],3), 1, 0, 'R');
-   $pdf->Cell(30, 5, number_format($value[invdtl_harga],3), 1, 0, 'R');
-   $pdf->Cell(40, 5, number_format($value[invdtl_jumlah],3), 1, 0, 'R');
-   $pdf->Cell(0, 5, '', 1, 1, 'C'); //CELL BARIS ATAS
-   $x++;
-  }
-
-    //$my_string = $val[invdtl_ritdtl];    
-
-    // passing "," as the delimiter
-
-    //$my_array1 = explode(",", $my_string);
-    
-
-    //   foreach($db->select("(select sum(txangkut_ritase) txangkut_ritase, sum(txangkut_tonase) txangkut_tonase from (select a.*, b.txangkut_tgl 
-    //     from tx_ritase_dtl a join tx_ritase b on a.txangkut_id = b.txangkut_id 
-    //     where a.trxangkutdtl_id in ($val[invdtl_ritdtl]) ) a group by txangkut_tgl ) a","*") as $values)
-    //   {
-    //     // $pdf->SetFont('Arial','',8);
-    //     // $pdf->Cell(30, 5, date("d-m-Y", strtotime($values[txangkut_tgl])), 1, 0, 'C');
-    //     // $pdf->Cell(100,5, $val[invdtl_uraian], 1, 0, 'C');
-    //     // $pdf->Cell(30, 5, number_format($values[txangkut_ritase],0), 1, 0, 'R');
-    //     // $pdf->Cell(30, 5, number_format($values[txangkut_tonase],2), 1, 1, 'R');
-    // $pdf->Cell(10, 5, "", 1, 0, 'C');
-    // $pdf->Cell(40, 5, $val[invdtl_uraian], 1, 0, 'C');
-    // $pdf->Cell(20, 5, number_format($values[txangkut_ritase],0), 1, 0, 'R');
-    // $pdf->Cell(30, 5, number_format($values[txangkut_tonase],2), 1, 0, 'R');
-    // $pdf->Cell(20, 5, round($values[txangkut_jarak],3), 1, 0, 'R');
-    // $pdf->Cell(30, 5, number_format($val[invdtl_harga],3), 1, 0, 'R');
-    // $pdf->Cell(40, 5, number_format($val[invdtl_jumlah],3), 1, 0, 'R');
-    // $pdf->Cell(0, 5, '', 1, 1, 'C'); //CELL BARIS ATAS
-    //   }
-
-  $pdf->SetFont('Arial','ib',8);
-    $pdf->Cell(50,5, "TOTAL ".$val[invdtl_uraian] , 1, 0, 'L');
-    $pdf->Cell(20, 5, number_format($val[ritaseTot],0), 1, 0, 'R');
-    $pdf->Cell(30, 5, number_format($val[tonaseTot],2), 1, 0, 'R');
-    $pdf->Cell(50, 5, "SUB TOTAL", 1, 0, 'R');
-    $pdf->Cell(40, 5, number_format($val[hargaTot],3), 1, 1, 'R');
+	$pdf->SetFont('Arial','',8);
+	$pdf->Cell(10, 5, $val[norut], 1, 0, 'C');
+	$pdf->Cell(40, 5, $val[invdtl_uraian], 1, 0, 'C');
+	$pdf->Cell(20, 5, number_format($val[invdtl_ritase],3), 1, 0, 'R');
+	$pdf->Cell(30, 5, number_format($val[invdtl_tonase],3), 1, 0, 'R');
+	$pdf->Cell(20, 5, round($val[invdtl_jarak],3), 1, 0, 'R');
+	$pdf->Cell(30, 5, number_format($val[invdtl_harga],3), 1, 0, 'R');
+	$pdf->Cell(40, 5, number_format($val[invdtl_jumlah],3), 1, 0, 'R');
+	$pdf->Cell(0, 5, '', 1, 1, 'C'); //CELL BARIS ATAS
 $no++;
 }
 
 $pdf->SetFont('Arial','',8);
-$pdf->Cell(150, 5, "TOTAL", 1, 0, 'R');
+$pdf->Cell(150, 5, "Sub Total", 1, 0, 'R');
 $pdf->Cell(40, 5, number_format($val2[inv_subtotal],2), 1, 1, 'R');
 
 
@@ -297,16 +258,16 @@ foreach($db->select("(select *, @rownum:=@rownum+1 norut from tx_invoice_dtl a J
         $pdf->SetFont('Arial','',8);
         $pdf->Cell(30, 5, date("d-m-Y", strtotime($values[txangkut_tgl])), 1, 0, 'C');
         $pdf->Cell(100,5, $val[invdtl_uraian], 1, 0, 'C');
-        $pdf->Cell(30, 5, number_format($values[txangkut_ritase],0), 1, 0, 'R');
-        $pdf->Cell(30, 5, number_format($values[txangkut_tonase],2), 1, 1, 'R');
+        $pdf->Cell(30, 5, number_format($values[txangkut_ritase],3), 1, 0, 'R');
+        $pdf->Cell(30, 5, number_format($values[txangkut_tonase],3), 1, 1, 'R');
       }
        
     
 
     $pdf->SetFont('Arial','B',8);
     $pdf->Cell(130,5, "TOTAL ".$val[invdtl_uraian] , 1, 0, 'R');
-    $pdf->Cell(30, 5, number_format($val[invdtl_ritase],0), 1, 0, 'R');
-    $pdf->Cell(30, 5, number_format($val[invdtl_tonase],2), 1, 1, 'R'); 
+    $pdf->Cell(30, 5, number_format($val[invdtl_ritase],3), 1, 0, 'R');
+    $pdf->Cell(30, 5, number_format($val[invdtl_tonase],3), 1, 1, 'R'); 
 
 $num++;
 
@@ -357,10 +318,10 @@ foreach($db->select("(select *, @rownum:=@rownum+1 norut from tx_invoice_dtl a J
 
   $pdf->SetFont('Arial','',8);
   $pdf->Cell(10, 5, $val[norut], 1, 0, 'C');
-  $pdf->Cell(55, 5, $val[invdtl_uraian], 1, 0, 'L');
+  $pdf->Cell(55, 5, $val[invdtl_uraian], 1, 0, 'C');
   $pdf->Cell(20, 5, round($val[invdtl_jarak],2), 1, 0, 'R');
-  $pdf->Cell(30, 5, number_format($val[invdtl_ritase],0), 1, 0, 'R');
-  $pdf->Cell(20, 5, number_format($val[invdtl_tonase],2), 1, 0, 'R');
+  $pdf->Cell(30, 5, number_format($val[invdtl_ritase],3), 1, 0, 'R');
+  $pdf->Cell(20, 5, number_format($val[invdtl_tonase],3), 1, 0, 'R');
   $pdf->Cell(55, 5, number_format($val[invdtl_uraian],3), 1, 1, 'R');
 
 $no++;
