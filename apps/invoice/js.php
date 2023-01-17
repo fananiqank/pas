@@ -53,7 +53,7 @@ function detailinv(){
 
 
 function hapusinv(a){
-        alert("IJ"+a);
+        // alert("IJ"+a);
         $.post('apps/invoice/voidrh.php?id='+a,
                 function(html){
                  location.reload();
