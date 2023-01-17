@@ -52,7 +52,14 @@ function detailinv(){
 }
 
 
-
+function hapusinv(a){
+        alert("IJ"+a);
+        $.post('apps/invoice/voidrh.php?id='+a,
+                function(html){
+                 location.reload();
+                }   
+            );
+}
 
 $(document).on('click','#detailrh',function(e){
     e.preventDefault();
