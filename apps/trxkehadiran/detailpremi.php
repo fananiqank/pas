@@ -91,6 +91,7 @@ foreach($db->select("$tbl","a.*,b.arm_nolambung,GROUP_CONCAT(hadirdriver_jumlah)
                 echo"<select name=\"harimasuk[]\" id=\"harimasuk_$no\" class=\"select2\">
                         <option value='0'>Alpha</option>
                         <option value='1'"; if($val['hadirdriver_jenis'] == 1){echo "selected";} echo ">Hadir</option>
+                        <option value='4'"; if($val['hadirdriver_jenis'] == 4){echo "selected";} echo ">Off Job</option>
                         <option value='2'"; if($val['hadirdriver_jenis'] == 2){echo "selected";} echo ">Cuti</option>
                         <option value='3'"; if($val['hadirdriver_jenis'] == 3){echo "selected";} echo ">Sakit</option>
                     </select>

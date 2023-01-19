@@ -61,7 +61,6 @@
                     <option value="0">Pilih Shift</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
-                    <option value="3">3</option>
                 </select>
             </div>
             <label class="col-sm-1 control-label" for="w1-username">Site</label>

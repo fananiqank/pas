@@ -59,6 +59,7 @@ foreach ($period as $dt) {
     $chadir = 0;
     $ccuti = 0;
     $cijin = 0;
+    $cojob = 0;
     echo "<tr>
                 <td scope=\"row\">$no</td>
                 <td scope=\"row\">".$dt->format("Y-m-d")."</td>
@@ -84,6 +85,9 @@ foreach ($period as $dt) {
                     } else if($valu['hadirdriver_jenis'] == 3){
                         echo "<font style='color:orange'><b>Sakit</b></font>";
                         $cijin=1;
+                    } else if($valu['hadirdriver_jenis'] == 4){
+                        echo "<font style='color:green'><b>Off Job</b></font>";
+                        $cojob=1;
                     }
                     $cc = 1;
                 } 
@@ -124,6 +128,7 @@ $jumhari += $na;
 $hadir += $chadir;
 $cuti += $ccuti;
 $ijin += $cijin;
+$ojob += $cojob;
 $allhadir += $cc;
 }
 
@@ -141,6 +146,12 @@ $allhadir += $cc;
         <tr>
             <td colspan="2">Hadir</td>
             <td><?=$hadir?></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="2">Off Job</td>
+            <td><?=$ojob?></td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>

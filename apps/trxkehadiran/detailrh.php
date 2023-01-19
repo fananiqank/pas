@@ -28,6 +28,7 @@ if($tg[1] == 1){
                 <th>Driver</th>
                 <th>Armada</th>
                 <th>Hadir</th>
+                <th>Off Job</th>
                 <th>Cuti</th>
                 <th>Sakit</th>
                 <th>Remark</th>
@@ -59,6 +60,7 @@ $p=0;
             <td><?=$val[driver_name]?></td>
             <td><?=$val[armada]?></td>
             <td align="left"><?php if($val[hadirdriver_jenis] == '1') {echo "<b><i class='ft-check' aria-hidden='true' style='color:green'></i></b>";}else{echo "<span style='color:red;'><b>x</b></span>";}?></td>
+            <td align="left"><?php if($val[hadirdriver_jenis] == '4') {echo "<b><i class='ft-check' aria-hidden='true' style='color:green'></i></b>";}else{echo "<span style='color:red;'><b>x</b></span>";}?></td>
             <td align="left"><?php if($val[hadirdriver_jenis] == '2') {echo "<b><i class='ft-check' aria-hidden='true' style='color:green'></i></b>";}else{echo "<span style='color:red;'><b>x</b></span>";}?></td>
             <td align="left"><?php if($val[hadirdriver_jenis] == '3') {echo "<b><i class='ft-check' aria-hidden='true' style='color:green'></i></b>";}else{echo "<span style='color:red;'><b>x</b></span>";}?></td>
             <td align="left"><?=$val[hadirdriver_remark]?></td>
