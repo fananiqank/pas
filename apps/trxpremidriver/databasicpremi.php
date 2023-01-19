@@ -77,15 +77,10 @@ $columns = array(
 	
 	array('db'      => 'txbaspre_id','dt'   => 6, 'field' => 'txbaspre_id',
 		   'formatter' => function( $d, $row ) {
-			return "<a href='javascript:void(0)' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh\">Detail</a>";
-			
+			return "<a href='javascript:void(0)' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh\">Detail</a>";			
 					 
 			}
 		  ),
-	
-		  
-	
-	
 		
 );
 
