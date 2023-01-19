@@ -16,10 +16,10 @@
             <div class="col-sm-3">
                 <input type="date" class="form-control input-sm headmas" name="txsolar_tgl" id="txsolar_tgl" required>
             </div>
-            <label class="col-sm-2 control-label" for="w1-username">Shift</label>
+            <!-- <label class="col-sm-2 control-label" for="w1-username">Shift</label>
             <div class="col-sm-1">
                 <input type="text" class="form-control input-sm headmas" name="txsolar_shift" id="txsolar_shift" required>
-            </div>
+            </div> -->
         </div>
         <div class="form-group row">
             <label class="col-sm-2 control-label" for="w1-username">Site</label>

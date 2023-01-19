@@ -7,6 +7,7 @@ $('.server-side').DataTable( {
         "ajax": "apps/trxsolar/data.php"
     } );
 
+if($('#filterb').val() == 1){
 $('#ritasesolar').DataTable( {
         "processing": true,
         "serverSide": true,
@@ -21,6 +22,22 @@ $('#ritasesolar').DataTable( {
                     className: 'dt-body-center',
                     }]
     } );
+} else{
+$('#ritasesolar').DataTable( {
+        "processing": true,
+        "serverSide": true,
+        //"ajax": "../server_side/scripts/server_processing.php" NOTE: use serverside script to fatch the data
+        "ajax": "apps/trxsolar/datarit2.php",
+        "columnDefs": [{
+                    targets: [3,4],
+                    className: 'dt-body-right',
+                    },
+                    {
+                    targets: [2],
+                    className: 'dt-body-center',
+                    }]
+    } );
+}
 
 $(document).ready(function(){
     $('#form input,#form select, #form select2 , #form textarea').jqBootstrapValidation({
@@ -106,6 +123,16 @@ function delCart(a){
     
 }
 
+$(document).on('click','#detailrh2',function(e){
+    e.preventDefault();
+        $("#defaultSize").modal('show');
+        $.post('apps/trxsolar/detailrh2.php?tgl='+$(this).attr("data-tgl")+'&shift='+$(this).attr("data-shift"),
+                function(html){
+                $("#jarakubahhis").html(html);
+                }   
+            );
+});
+
 $(document).on('click','#detailrh',function(e){
     e.preventDefault();
         $("#defaultSize").modal('show');
@@ -115,6 +142,7 @@ $(document).on('click','#detailrh',function(e){
                 }   
             );
 });
+
 function hapussolar(a){
     // alert(a);
     
@@ -123,5 +151,9 @@ function hapussolar(a){
         alert(data);
         $('#ritasesolar').DataTable().ajax.reload();
     });
+}
+
+function loader(id){
+    window.location.href="index.php?x=trxsolar&fl="+id;
 }
 </script>

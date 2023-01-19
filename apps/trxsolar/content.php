@@ -18,15 +18,22 @@
                 <a class="dropdown-item" href="index.php?x=trxsolarupload"><i class="fa fa-cart-plus mr-1"></i> Upload</a>
             </div>
         </div>
+        <div class="col-sm-3">
+                <select class="select2 form-control block headmas" id="filterb" name="filterb" onchange="loader(this.value)" required>
+                    <option value="1" <?php if($_GET[fl]==1){echo "selected";} ?>>Tanggal Upload</option>
+                    <option value="2" <?php if($_GET[fl]==2){echo "selected";} ?>>Tanggal Transaksi</option>
+                </select>
+            </div>
     </div>
     
     <div class="col-lg-12">
+
         <div class="table-responsive">
             <table class="table table-striped table-bordered" id="ritasesolar">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Tanggal Transaksi</th>
+                        <th>Tanggal</th>
                         <th>Shift</th>
                         <th>Total Liter</th>
                         <th>Total Harga</th>
@@ -36,7 +43,7 @@
                 <tfoot>
                     <tr>
                         <th>ID</th>
-                        <th>Tanggal Transaksi</th>
+                        <th>Tanggal Upload</th>
                         <th>Shift</th>
                         <th>Total Liter</th>
                         <th>Total Harga</th>

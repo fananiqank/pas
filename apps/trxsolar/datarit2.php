@@ -24,10 +24,10 @@ $db=new kelas();
 
 // DB table to use
 
-$table = "tx_invoice";
+$table = "tx_solar";
 
 // Table's primary key
-$primaryKey = 'inv_id';
+$primaryKey = 'txsolar_id';
 
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
@@ -39,46 +39,32 @@ $columns = array(
 			return"$d";
 			}
 		  ),
-	array('db'      => 'inv_tgl','dt'   => 1, 'field' => 'inv_tgl',
-		   'formatter' => function( $d, $row ) {
-			
-			return"$d";
-					 
-			}
-		  ),
-	array('db'      => 'invperiode','dt'   => 2, 'field' => 'invperiode',
-		   'formatter' => function( $d, $row ) {
-			
-			return"$d";
-					 
-			}
-		  ),
-	array('db'      => 'cust_name','dt'   => 3, 'field' => 'cust_name',
-		   'formatter' => function( $d, $row ) {
-			
-			return"$d";
-					 
-			}
-		  ),
-	array('db'      => 'inv_no','dt'   => 4, 'field' => 'inv_no',
+	array('db'      => 'txsolardtl_tgltrans','dt'   => 1, 'field' => 'txsolardtl_tgltrans',
 		   'formatter' => function( $d, $row ) {
 			return"$d";
-			
-					 
 			}
 		  ),
-	array('db'      => 'inv_grandtotal','dt'   => 5, 'field' => 'inv_grandtotal',
+	array('db'      => 'txsolardtl_shift','dt'   => 2, 'field' => 'txsolardtl_shift',
+		   'formatter' => function( $d, $row ) {
+			return"$d";
+			}
+		  ),
+	array('db'      => 'totalliter','dt'   => 3, 'field' => 'totalliter',
 		   'formatter' => function( $d, $row ) {
 			return number_format($d,2);
-			
-					 
 			}
 		  ),
-	
-	array('db'      => 'inv_id','dt'   => 6, 'field' => 'inv_id',
+	array('db'      => 'totaltotal','dt'   => 4, 'field' => 'totaltotal',
 		   'formatter' => function( $d, $row ) {
-			return "<a href='javascript:void(0)' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh\">Detail</a>| <a href='javascript:void(0)' data-id=\"$d\" onclick=\"hapusinv($d)\" id=\"voidrh\">Void</a>";
-			
+			return number_format($d,0);
+			}
+		  ),
+	array('db'      => 'gabs','dt'   => 5, 'field' => 'gabs',
+		   'formatter' => function( $d, $row ) {
+		   	$exp = explode("_", $d);
+			// return "<a href='javascript:void(0)' data-tgl=\"$exp[0]\" data-shift=\"$exp[1]\" data-toggle=\"modal\" id=\"detailrh\">Detail</a> | <a href='javascript:void(0)' onclick=\"hapussolar($d)\" >Hapus</a>";
+			return "<a href='javascript:void(0)' data-tgl=\"$exp[0]\" data-shift=\"$exp[1]\" data-toggle=\"modal\" id=\"detailrh2\">Detail</a>";
+			// return "";
 			
 					 
 			}
@@ -106,7 +92,8 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (SELECT  @rownum:=@rownum+1 norut, a.*, b.cust_name,concat(a.inv_periode1,' - ',a.inv_periode2) as invperiode FROM `tx_invoice` a JOIN m_customer b ON a.cust_id=b.cust_id JOIN (SELECT @rownum:=0) r) a";
+$joinQuery = "FROM (SELECT @rownum:=@rownum+1 norut,txsolardtl_tgltrans,txsolardtl_shift,sum(txsolardtl_liter) totalliter,sum(txsolardtl_total) totaltotal,concat(txsolardtl_tgltrans,'_',txsolardtl_shift) gabs from tx_solar_dtl JOIN (SELECT @rownum:=0) r GROUP BY txsolardtl_tgltrans,txsolardtl_shift ) a
+			";
 $extraWhere = "";        
 
 echo json_encode(

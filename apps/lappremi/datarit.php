@@ -24,10 +24,10 @@ $db=new kelas();
 
 // DB table to use
 
-$table = "tx_invoice";
+$table = "tx_maintenancedtl";
 
 // Table's primary key
-$primaryKey = 'inv_id';
+$primaryKey = 'id_mtcdtl';
 
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
@@ -39,54 +39,45 @@ $columns = array(
 			return"$d";
 			}
 		  ),
-	array('db'      => 'inv_tgl','dt'   => 1, 'field' => 'inv_tgl',
+	array('db'      => 'nama_barang','dt'   => 1, 'field' => 'nama_barang',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'invperiode','dt'   => 2, 'field' => 'invperiode',
+	array('db'      => 'qty_mtcdtl','dt'   => 2, 'field' => 'qty_mtcdtl',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'cust_name','dt'   => 3, 'field' => 'cust_name',
+	array('db'      => 'nama_satuan','dt'   => 3, 'field' => 'nama_satuan',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'inv_no','dt'   => 4, 'field' => 'inv_no',
+	array('db'      => 'jenis','dt'   => 4, 'field' => 'jenis',
 		   'formatter' => function( $d, $row ) {
-			return"$d";
+			if($d == 1){
+				$jenisbrg = "Baru";
+			} else {
+				$jenisbrg = "Bekas";
+			}
+			return"$jenisbrg";
+					 
+			}
+		  ),
+	array('db'      => 'id_mtcdtl','dt'   => 5, 'field' => 'id_mtcdtl',
+		   'formatter' => function( $d, $row ) {
+			return "<a href='javascript:void(0)' onclick='delCart($d)'>Del</a>";
 			
 					 
 			}
 		  ),
-	array('db'      => 'inv_grandtotal','dt'   => 5, 'field' => 'inv_grandtotal',
-		   'formatter' => function( $d, $row ) {
-			return number_format($d,2);
-			
-					 
-			}
-		  ),
-	
-	array('db'      => 'inv_id','dt'   => 6, 'field' => 'inv_id',
-		   'formatter' => function( $d, $row ) {
-			return "<a href='javascript:void(0)' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh\">Detail</a>| <a href='javascript:void(0)' data-id=\"$d\" onclick=\"hapusinv($d)\" id=\"voidrh\">Void</a>";
-			
-			
-					 
-			}
-		  ),
-	
-		  
-	
-	
 		
 );
 
@@ -106,7 +97,7 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (SELECT  @rownum:=@rownum+1 norut, a.*, b.cust_name,concat(a.inv_periode1,' - ',a.inv_periode2) as invperiode FROM `tx_invoice` a JOIN m_customer b ON a.cust_id=b.cust_id JOIN (SELECT @rownum:=0) r) a";
+$joinQuery = "FROM (SELECT @rownum:=@rownum+1 norut, a.*, b.nama_barang, c.nama_satuan FROM tx_maintenancedtl a JOIN m_barang b ON a.id_barang=b.id_barang JOIN m_satuan c ON b.id_satuan=c.id_satuan JOIN (SELECT @rownum:=0) r where status_mtcdtl = 0) a";
 $extraWhere = "";        
 
 echo json_encode(

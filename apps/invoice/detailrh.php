@@ -15,22 +15,19 @@ foreach($db->select("(SELECT  @rownum:=@rownum+1 norut, a.*, b.cust_name FROM `t
     <table class="table">
         <thead>
             <tr>
-                <th>Tgl Inv</th>
-                <th><?=date("d/m/Y",strtotime($val2[inv_tgl]))?></th>
-                <th>Customer</th>
-                <th><?=$val2[cust_name]?></th>
-                <th>No Inv</th>
-                <th><?=$val2[inv_no]?></th>
+                <th colspan="2">Tgl Inv : <?=date("d/m/Y",strtotime($val2[inv_tgl]))?></th>
+                <th colspan="2">Customer : <?=$val2[cust_name]?></th>
+                <th colspan="2">No Inv : <?=$val2[inv_no]?></th>
             </tr>
            
             <tr>
                 <th>No</th>
                 <th>Uraian</th>
-                <th>Ritase</th>
-                <th>Tonase</th>
-                <th>Jarak</th>
-                <th>Harga</th>
-                <th>Jumlah</th>
+                <th style="text-align: center;">Ritase</th>
+                <th style="text-align: center;">Tonase</th>
+                <th style="text-align: center;">Jarak</th>
+                <th style="text-align: center;">Harga</th>
+                <th style="text-align: center;">Jumlah</th>
 
             </tr>
         </thead>
@@ -51,11 +48,11 @@ foreach($db->select("(select *, @rownum:=@rownum+1 norut from tx_invoice_dtl a J
 	<tr>
                 <th><?=$val[norut]?></th>
                 <th><?=$val[invdtl_uraian]?></th>
-                <th><?=$val[invdtl_ritase]?></th>
-                <th><?=$val[invdtl_tonase]?></th>
-                <th><?=$val[invdtl_jarak]?></th>
-                <th align="right"><?=number_format($val[invdtl_harga],2)?></th>
-                <th align="right"><?=number_format($val[invdtl_jumlah],2)?></th>
+                <th style="text-align: right;"><?=$val[invdtl_ritase]?></th>
+                <th style="text-align: right;"><?=number_format($val[invdtl_tonase],3)?></th>
+                <th style="text-align: right;"><?=number_format($val[invdtl_jarak],3)?></th>
+                <th style="text-align: right;"><?=number_format($val[invdtl_harga])?></th>
+                <th style="text-align: right;"><?=number_format($val[invdtl_jumlah],2)?></th>
 
     </tr>
     <?php

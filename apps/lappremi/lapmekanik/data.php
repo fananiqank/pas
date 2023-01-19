@@ -21,66 +21,71 @@ $db=new kelas();
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Easy set variables
  */
-
+if($_GET[tgl]){
+	$gettgl = "$_GET[tgl]";
+} else {
+	$gettgl = "";
+}
 // DB table to use
 
-$table = "tx_invoice";
+$table = "m_armada";
 
 // Table's primary key
-$primaryKey = 'inv_id';
+$primaryKey = 'arm_id';
 
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-	array('db'      => 'norut','dt'   => 0, 'field' => 'norut',
+	array('db'      => 'no_urut','dt'   => 0, 'field' => 'no_urut',
 		   'formatter' => function( $d, $row ) {
 			return"$d";
 			}
 		  ),
-	array('db'      => 'inv_tgl','dt'   => 1, 'field' => 'inv_tgl',
+	array('db'      => 'arm_type_armada','dt'   => 1, 'field' => 'arm_type_armada',
+		   'formatter' => function( $d, $row ) {
+			
+			if($d == 1) {
+				$showtypearmada = "DT 10 Roda";
+			} else {
+				$showtypearmada = "SDT 26 Roda";
+			}
+			return"$showtypearmada";
+					 
+			}
+		  ),
+	array('db'      => 'arm_nolambung','dt'   => 2, 'field' => 'arm_nolambung',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'invperiode','dt'   => 2, 'field' => 'invperiode',
+	array('db'      => 'arm_target_rit','dt'   => 3, 'field' => 'arm_target_rit',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'cust_name','dt'   => 3, 'field' => 'cust_name',
+	array('db'      => 'jmlrit','dt'   => 4, 'field' => 'jmlrit',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
-					 
-			}
-		  ),
-	array('db'      => 'inv_no','dt'   => 4, 'field' => 'inv_no',
-		   'formatter' => function( $d, $row ) {
-			return"$d";
-			
-					 
-			}
-		  ),
-	array('db'      => 'inv_grandtotal','dt'   => 5, 'field' => 'inv_grandtotal',
-		   'formatter' => function( $d, $row ) {
-			return number_format($d,2);
-			
 					 
 			}
 		  ),
 	
-	array('db'      => 'inv_id','dt'   => 6, 'field' => 'inv_id',
+	array('db'      => 'balance','dt'   => 5, 'field' => 'balance',
 		   'formatter' => function( $d, $row ) {
-			return "<a href='javascript:void(0)' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh\">Detail</a>| <a href='javascript:void(0)' data-id=\"$d\" onclick=\"hapusinv($d)\" id=\"voidrh\">Void</a>";
+		   	//$exp = explode('_',$d);
+				if($d < 0 ){
+					return "<font style='color:red'>No Target</font>";
+				} else {
+					return "Targeted";
+				}
 			
-			
-					 
 			}
 		  ),
 	
@@ -106,7 +111,12 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (SELECT  @rownum:=@rownum+1 norut, a.*, b.cust_name,concat(a.inv_periode1,' - ',a.inv_periode2) as invperiode FROM `tx_invoice` a JOIN m_customer b ON a.cust_id=b.cust_id JOIN (SELECT @rownum:=0) r) a";
+$joinQuery = "FROM (select @rownum:=@rownum+1 no_urut,a.* from (select arm_nolambung,arm_type_armada,arm_target_rit,COALESCE(sum(rit),0) jmlrit,COALESCE((COALESCE(sum(rit),0)-arm_target_rit),0) balance from (select a.arm_norangka,a.arm_nolambung,a.arm_type_armada,arm_target_rit,b.txangkut_id,b.trxangkutdtl_id,b.rit
+from m_armada a
+left join (select b.arm_id,b.txangkut_id,trxangkutdtl_id,'1' as rit
+					 from tx_ritase b join tx_ritase_dtl c on b.txangkut_id=c.txangkut_id
+					 where txangkut_tgl = '$gettgl') b on a.arm_id=b.arm_id) z
+GROUP BY arm_nolambung,arm_type_armada,arm_target_rit) a JOIN (SELECT @rownum:=0) r) z";
 $extraWhere = "";        
 
 echo json_encode(
