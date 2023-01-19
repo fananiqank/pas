@@ -78,8 +78,7 @@ $columns = array(
 	array('db'      => 'inv_id','dt'   => 6, 'field' => 'inv_id',
 		   'formatter' => function( $d, $row ) {
 			return "<a href='javascript:void(0)' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh\">Detail</a>| <a href='javascript:void(0)' data-id=\"$d\" onclick=\"hapusinv($d)\" id=\"voidrh\">Void</a>";
-			
-			
+
 					 
 			}
 		  ),
