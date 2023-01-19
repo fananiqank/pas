@@ -145,11 +145,11 @@ function cekPakai(val){
   }
 }
 
-function showBrg(val){
+function showBrg(val,jenis){
 	spl = val.split('_');
     $('#id_barang').val(spl[0]);
     $('#id_satuan').val(spl[1]);
-    $.post('apps/barangkeluar/cekqtycari.php?act=save',{idbarang:spl[0],idgudang:$('#id_gudang').val()},
+    $.post('apps/barangkeluar/cekqtycari.php?act=save',{idbarang:spl[0],jenis:jenis,idgudang:$('#id_gudang').val()},
       function(msg) {
           $('#stok').val(msg);
           $('#stokshow').html(msg+" "+spl[2]);

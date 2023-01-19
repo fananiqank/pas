@@ -33,7 +33,7 @@
     <div class="form-group row form-inline">
         <label class="col-sm-2 control-label" for="w1-username">Cari Barang</label>
         <div class="col-sm-3">
-            <select class="select2 frdet rst1" id="caribrg" name="caribrg" onChange="showBrg(this.value)">
+            <select class="select2 frdet rst1" id="caribrg" name="caribrg" onChange="showBrg(this.value,jenisbrg.value)">
                 <?php include "tampilcari.php"; ?>
             </select>
             <input type="hidden" class="form-control input-sm rst1" name="id_brgkeluardtl" id="id_brgkeluardtl">
