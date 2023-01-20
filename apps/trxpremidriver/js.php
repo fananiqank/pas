@@ -47,7 +47,15 @@ function detailpremi(){
         );
 }
 
-
+function hapuspremi(a){
+    // alert(a);
+    
+    $.get( "apps/trxpremidriver/proses.php?act=hapuspremi&id="+a, function( data ) {
+        // $( ".result" ).html( data );
+        alert("Void Sukses");
+        $('#invoicelist').DataTable().ajax.reload();
+    });
+}
 
 
 $(document).on('click','#detailrh',function(e){

@@ -128,4 +128,20 @@ if($_GET[act]=='post'){
 	$dt=$db->delete("tx_ritase_dtltmp",array("trxangkutdtl_id"=> $_GET[id]));
 	// echo json_encode($dt);
 
+} else if($_GET[act]=='hapuspremi'){
+	$db->query("insert into trx_basicpremi_driver_rem (txbaspre_id,id_site,txbaspre_no,txbaspre_bulan,txbaspre_tahun,txbaspre_tbas,txbaspre_tpre,txbaspre_gttl,txbaspre_user,txbaspre_tglinput,txbaspre_tgl1,txbaspre_tgl2) select txbaspre_id,id_site,txbaspre_no,txbaspre_bulan,txbaspre_tahun,txbaspre_tbas,txbaspre_tpre,txbaspre_gttl,txbaspre_user,txbaspre_tglinput,txbaspre_tgl1,txbaspre_tgl2 from trx_basicpremi_driver where txbaspre_id = $_GET[id]");
+
+
+	foreach($db->select("trx_basicpremi_driver_dtl","*","txbaspre_id = $_GET[id]") as $predtl){
+		$db->query("insert into trx_basicpremi_driver_dtl_rem (txbaspredtl_id,
+txbaspre_id,txbaspredtl_uraian,driver_id,txbaspredtl_jenis,txbaspredtl_jumlah,txbaspredtl_satuan,txbaspredtl_ttl,txbaspredtl_nolambung,id_site,rutejarak_id) 
+values ('".$predtl['txbaspredtl_id']."','".$predtl['txbaspre_id']."','".$predtl['txbaspredtl_uraian']."','".$predtl['driver_id']."','".$predtl['txbaspredtl_jenis']."','".$predtl['txbaspredtl_jumlah']."','".$predtl['txbaspredtl_satuan']."','".$predtl['txbaspredtl_ttl']."','".$predtl['txbaspredtl_nolambung']."','".$predtl['id_site']."','".$predtl['rutejarak_id']."')");
+
+		
+	}
+
+	 $dt=$db->delete("trx_basicpremi_driver_dtl",array("txbaspre_id"=> $_GET[id]));
+	 $dt2=$db->delete("trx_basicpremi_driver",array("txbaspre_id"=> $_GET[id]));
+	// echo json_encode($dt);
+
 }
