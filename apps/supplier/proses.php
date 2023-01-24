@@ -11,7 +11,8 @@ if($_GET[act]=='post'){
 			supp_alamat,
 			supp_notelp,
 			supp_status,
-			supp_type
+			supp_type,
+			supp_kode
 		) 
 		values (
 			'$_POST[supp_id]',
@@ -19,13 +20,15 @@ if($_GET[act]=='post'){
 			'$_POST[supp_alamat]',
 			'$_POST[supp_notelp]',
 			1,
-			'$_POST[supp_type]'
+			'$_POST[supp_type]',
+			'$_POST[supp_kode]'
 		) ON DUPLICATE KEY UPDATE 
 			supp_nama='$_POST[supp_nama]',
 			supp_alamat='$_POST[supp_alamat]',
 			supp_notelp='$_POST[supp_notelp]',
 			supp_status='$_POST[supp_status]',
-			supp_type='$_POST[supp_type]'
+			supp_type='$_POST[supp_type]',
+			supp_kode='$_POST[supp_kode]',
 		");
 
 foreach($db->select("m_supplier","max(supp_id) maxsupid") as $spi){}

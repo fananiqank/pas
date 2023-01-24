@@ -22,5 +22,4 @@ if($_GET[act]=='post'){
 } else if($_GET[act]=='get'){
 	$dt=$db->select("m_cabang","*","id_cabang='$_GET[id]'");
 	echo json_encode($dt);
-
 }

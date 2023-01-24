@@ -52,7 +52,7 @@ foreach($db->select("(SELECT @rownum:=@rownum+1 norut, a.*, c.tujuan_name, d.rom
 }
 ?>      <tr>
                 <th></th>
-                <th colspan="6">Total</th>
+                <th colspan="8">Total</th>
                 <th><?=number_format($val2[ton],2)?></th>
 
             </tr>

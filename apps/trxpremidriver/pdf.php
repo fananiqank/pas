@@ -59,7 +59,7 @@ foreach($db->select("$mbasic",'basicdriver_jumlah') as $dbasic){}
 foreach($db->select("(select * from txkehadiran where hadirdriver_bulan='$bln' AND hadirdriver_tahun='$thn' and hadirdriver_type='1') a",'hadirdriver_jumlah') as $hadir){}
 foreach($db->select("(select * from txkehadiran where hadirdriver_bulan='$bln' AND hadirdriver_tahun='$thn' and hadirdriver_type='2') a",'hadirdriver_jumlah') as $unit){}
 
-$perawatanunit = '500000';
+$perawatanunit = '0';
 if($basic['jumlah_hari'] > 0){
   $dayrawatunit = ($perawatanunit/$basic['jumlah_hari']);
 } else {
@@ -128,10 +128,14 @@ foreach($db->select("(select c.rom_name,d.tujuan_name, txbaspredtl_jenis, sum(tx
                $ton =" (".$val['txbaspredtl_jenis'].")";
             } 
 
+            if($val['txbaspredtl_jenis'] == "Tonase")
+            {$basjumlah= number_format($val['txbaspredtl_jumlah'],3);} 
+            else {$basjumlah= number_format($val['txbaspredtl_jumlah']);}
+
 $pdf->SetFont('Arial','B',8);
 $pdf->Cell(8,5,$no,0,0,'C');
 $pdf->Cell(45,5,$val['rom_name']." ke ".$val['tujuan_name'],0,0,'L');
-$pdf->Cell(25,5,number_format($val['txbaspredtl_jumlah']).$ton,0,0,'C');
+$pdf->Cell(25,5,$basjumlah.$ton,0,0,'C');
 $pdf->Cell(20,5,number_format($ritman),0,0,'R');
 $pdf->Cell(30,5,number_format($val['txbaspredtl_ttl']),0,1,'R');
 $no++;
@@ -168,9 +172,8 @@ $pdf->SetFont('Arial','B',8);
 $pdf->Cell(98,5,"Grand Total (Total - Potongan)",0,0,'L');
 $pdf->Cell(30,5,"Rp. ".number_format($grandtotal+($dbasic['basicdriver_jumlah']/30*$basic1[jumlah_hari])),0,1,'R');
 
-
-$pdf->SetLineWidth(0.5);
-$pdf->Line(10,105,138,105);
+// $pdf->SetLineWidth(0.5);
+// $pdf->Line(10,105,138,105);
 
 
 

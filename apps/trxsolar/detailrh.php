@@ -11,15 +11,14 @@ foreach($db->select("(SELECT * FROM `tx_solar`where txsolar_id='$_GET[id]') a","
     <table class="table" id="detailsolar">
         <thead>
             <tr>
-                <th colspan="2">Tanggal</th>
+                <th colspan="2">Tanggal Upload</th>
                 <th colspan="6"><?=$val2[txsolar_tgl]?></th>
             </tr>
-            <tr>
-                <th colspan="2">Shift</th>
-                <th colspan="6"><?=$val2[txsolar_shift]?></th>
-            </tr>
+            
             <tr>
                 <th>No</th>
+                <th>Tgl Trans</th>
+                <th>Shift</th>
                 <th>No Lambung</th>
                 <th>Driver</th>
                 <th>Liter</th>
@@ -35,7 +34,7 @@ foreach($db->select("(SELECT * FROM `tx_solar`where txsolar_id='$_GET[id]') a","
 $no=1;
 foreach($db->select("(SELECT @rownum:=@rownum+1 norut, a.*, b.nama_site,
     d.driver_name,e.arm_nolambung,f.supp_nama,c.txsolardtl_liter,c.txsolardtl_harga,
-    c.txsolardtl_total,c.txsolardtl_petugas 
+    c.txsolardtl_total,c.txsolardtl_petugas,c.txsolardtl_tgltrans,c.txsolardtl_shift
     FROM `tx_solar` a JOIN m_site b ON a.id_site=b.id_site 
     JOIN tx_solar_dtl c ON a.txsolar_id=c.txsolar_id 
     LEFT JOIN m_driver d on c.driver_id=d.driver_id 
@@ -46,6 +45,8 @@ foreach($db->select("(SELECT @rownum:=@rownum+1 norut, a.*, b.nama_site,
 	
 	echo "<tr>
                 <td scope=\"row\">$no</td>
+                <td >$val[txsolardtl_tgltrans]</td>
+                <td >$val[txsolardtl_shift]</td>
                 <td >$val[arm_nolambung]</td>
                 <td >$val[driver_name]</td>
                 <td align='right'>".number_format($val[txsolardtl_liter],1)."</td>
@@ -60,10 +61,10 @@ foreach($db->select("(SELECT @rownum:=@rownum+1 norut, a.*, b.nama_site,
 }
 ?>      <tr>
                 <th></th>
-                <th colspan="2">Total</th>
-                <th align="right"><?=number_format($totalliter,1)?></th>
+                <th colspan="4" style="text-align: right;">Total</th>
+                <th style="text-align: right;"><?=number_format($totalliter,1)?></th>
                 <th></th>
-                <th align="right"><?=number_format($totaltotal)?></th>
+                <th style="text-align: right;"><?=number_format($totaltotal)?></th>
                 <th></th>
                 <th></th>
             </tr>

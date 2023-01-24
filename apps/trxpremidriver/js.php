@@ -5,7 +5,10 @@ $('#invoicelist').DataTable( {
         "processing": true,
         "serverSide": true,
         //"ajax": "../server_side/scripts/server_processing.php" NOTE: use serverside script to fatch the data
-        "ajax": "apps/trxpremidriver/databasicpremi.php"
+        "ajax": "apps/trxpremidriver/databasicpremi.php",
+        "columnDefs": [
+            { "targets": [3, 4, 5], "className": 'dt-body-right' },
+          ]
     } );
 
 $(document).ready(function(){

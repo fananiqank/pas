@@ -52,6 +52,7 @@ function getEdit(a){
             $('#supp_alamat').val(counter.supp_alamat);
             $('#supp_notelp').val(counter.supp_notelp);
             $('#supp_type').val(counter.supp_type);
+            $('#supp_kode').val(counter.supp_kode);
             $('#supp_type').load("apps/supplier/tampiltype.php?type="+counter.supp_type);
             $('#supp_status').val(counter.supp_status);
             $('#supp_status').load("apps/supplier/tampilstatus.php?status="+counter.supp_status);

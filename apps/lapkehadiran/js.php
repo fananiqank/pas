@@ -22,7 +22,7 @@ if($('#tgl1').val()){
                 exportOptions: {
                 columns: ':visible'
                 },
-                title: 'Laporan Mekanik : '+$('#tgl1').val()+'-'+$('#tgl2').val(),
+                title: 'Laporan Kehadiran : '+$('#tgl1').val()+'-'+$('#tgl2').val(),
             },
             {
                 extend: 'pdf',
@@ -30,7 +30,7 @@ if($('#tgl1').val()){
                 exportOptions: {
                 columns: ':visible'
                 },
-                title: 'Laporan Mekanik : '+$('#tgl1').val()+'-'+$('#tgl2').val(),
+                title: 'Laporan Kehadiran : '+$('#tgl1').val()+'-'+$('#tgl2').val(),
             },
             {
                 extend: 'print',
@@ -38,7 +38,7 @@ if($('#tgl1').val()){
                 exportOptions: {
                 columns: ':visible'
                 },
-                title: 'Laporan Mekanik Periode : '+$('#tgl1').val()+'-'+$('#tgl2').val(),
+                title: 'Laporan Kehadiran Periode : '+$('#tgl1').val()+'-'+$('#tgl2').val(),
             },
            // 'copy', 'csv', 'print','excel',
         ],

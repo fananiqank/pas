@@ -17,7 +17,7 @@
         </div>
        
     </div> -->
-        <label class="col-sm-1 control-label" for="w1-username" style="text-align: center;">Periode</label> 
+        <label class="col-sm-1 control-label" for="w1-username" style="text-align: center;">Periode Posting</label> 
             <div class="col-sm-4">
                 <input type="date" name="tgl1" id="tgl1" style="padding: 1%;border-radius: 5px;width: 40%">&ensp;-&ensp;<input type="date" name="tgl2" id="tgl2" style="padding: 1%;border-radius: 5px;width: 40%"></td>
             </div>

@@ -58,7 +58,9 @@ if(isset($_FILES['file']['name']) && in_array($_FILES['file']['type'], $file_mim
 							txsolardtl_total,
 							txsolardtl_petugas,
 							userid,
-							supp_id
+							supp_id,
+							txsolardtl_tgltrans,
+							txsolardtl_shift
 						) 
 						values (
 							'$nolamb[arm_id]',
@@ -68,8 +70,11 @@ if(isset($_FILES['file']['name']) && in_array($_FILES['file']['type'], $file_mim
 							'$total',
 							'$v[8]',
 							'$_SESSION[ID_PEG]',
-							'$nosupp[supp_id]'
+							'$nosupp[supp_id]',
+							'$v[9]',
+							'$v[10]'
 						);";
+						
             }
         }
     }
@@ -81,8 +86,7 @@ if(isset($_FILES['file']['name']) && in_array($_FILES['file']['type'], $file_mim
     	$data=array(
 					"txsolar_tgl"=>$_POST[txsolar_tgl],
 					"txsolar_user"=>$_SESSION[ID_PEG],
-					"id_site"=>$_POST[id_site],
-					"txsolar_shift"=>$_POST[txsolar_shift]
+					"txsolar_site"=>$_POST[id_site],
 				);
 		$in=$db->insertID("tx_solar",$data);
 
@@ -96,7 +100,9 @@ if(isset($_FILES['file']['name']) && in_array($_FILES['file']['type'], $file_mim
 					txsolardtl_total,
 					txsolardtl_tgl,
 					txsolardtl_petugas,
-					supp_id
+					supp_id,
+					txsolardtl_tgltrans,
+					txsolardtl_shift
 				) 
 				select '$in',
 						arm_id,
@@ -106,7 +112,9 @@ if(isset($_FILES['file']['name']) && in_array($_FILES['file']['type'], $file_mim
 						txsolardtl_total,
 						txsolardtl_tgl,
 						txsolardtl_petugas,
-						supp_id
+						supp_id,
+						txsolardtl_tgltrans,
+						txsolardtl_shift
  				from tx_solar_dtl_tmp where userid='$_SESSION[ID_PEG]';
 				delete FROM tx_solar_dtl_tmp where userid='$_SESSION[ID_PEG]';
 

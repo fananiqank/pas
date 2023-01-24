@@ -40,42 +40,47 @@ $columns = array(
 			return"$d";
 			}
 		  ),
-	array('db'      => 'supp_nama','dt'   => 1, 'field' => 'supp_nama',
+	array('db'      => 'supp_kode','dt'   => 1, 'field' => 'supp_kode',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'supp_alamat','dt'   => 2, 'field' => 'supp_alamat',
+	array('db'      => 'supp_nama','dt'   => 2, 'field' => 'supp_nama',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'supp_notelp','dt'   => 3, 'field' => 'supp_notelp',
+	array('db'      => 'supp_alamat','dt'   => 3, 'field' => 'supp_alamat',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'supp_type','dt'   => 4, 'field' => 'supp_type',
+	array('db'      => 'supp_notelp','dt'   => 4, 'field' => 'supp_notelp',
+		   'formatter' => function( $d, $row ) {
+			
+			return"$d";
+					 
+			}
+		  ),
+	array('db'      => 'supp_type','dt'   => 5, 'field' => 'supp_type',
 		   'formatter' => function( $d, $row ) {
 		   	if($d == 1){
 		   		$rtn = "Supplier";
-		   	} else if($d== 2) {
-		   		$rtn = "Vendor Jasa";
 		   	} else {
-		   		$rtn = "Vendor Solar";
+		   		$rtn = "Vendor Jasa";
 		   	}
 			
 			return"$rtn";
 					 
 			}
 		  ),
-	array('db'      => 'supp_status','dt'   => 5, 'field' => 'supp_status',
+	array('db'      => 'supp_status','dt'   => 6, 'field' => 'supp_status',
 		   'formatter' => function( $d, $row ) {
 		   	if($d == 1){
 		   		$rtn = "Aktif";
@@ -87,7 +92,7 @@ $columns = array(
 					 
 			}
 		  ),
-	array('db'      => 'supp_id','dt'   => 6, 'field' => 'supp_id',
+	array('db'      => 'supp_id','dt'   => 7, 'field' => 'supp_id',
 		   'formatter' => function( $d, $row ) {	
 			return "<a href='javascript:void(0)' onclick=\"getEdit('$d')\">Edit</a>";
 			}

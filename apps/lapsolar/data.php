@@ -30,25 +30,25 @@ if($_GET[tgl]){
 if($_GET[shift] == ''){
 	$shift = "";
 } else {
-	$shift = "and a.txsolar_shift = $_GET[shift]";
+	$shift = "and a.txsolardtl_shift = $_GET[shift]";
 }
 
 if($_GET[driverid] == ''){
 	$driverid = "";
 } else {
-	$driverid = "and c.driver_id = $_GET[driverid]";
+	$driverid = "and a.driver_id = $_GET[driverid]";
 }
 
 if($_GET[armid] == ''){
 	$armada = "";
 } else {
-	$armada = "and c.arm_id = $_GET[armid]";
+	$armada = "and a.arm_id = $_GET[armid]";
 }
 
 if($_GET[suppid] == ''){
 	$suppid = "";
 } else {
-	$suppid = "and c.supp_id = $_GET[suppid]";
+	$suppid = "and a.supp_id = $_GET[suppid]";
 }
 // DB table to use
 
@@ -67,12 +67,12 @@ $columns = array(
 			return"$d";
 			}
 		  ),
-	array('db'      => 'txsolar_tgl','dt'   => 1, 'field' => 'txsolar_tgl',
+	array('db'      => 'txsolardtl_tgltrans','dt'   => 1, 'field' => 'txsolardtl_tgltrans',
 		   'formatter' => function( $d, $row ) {
 			return"$d";
 			}
 		  ),
-	array('db'      => 'txsolar_shift','dt'   => 2, 'field' => 'txsolar_shift',
+	array('db'      => 'txsolardtl_shift','dt'   => 2, 'field' => 'txsolardtl_shift',
 		   'formatter' => function( $d, $row ) {
 			//$isijam = "<a href='apps/maintenance/pdfmtc.php?id=1&mtc=$d' target='_blank'>$d</a>";
 			return $d;
@@ -140,14 +140,16 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (SELECT @rownum:=@rownum+1 norut, a.*, b.nama_site,
-    d.driver_name,e.arm_nolambung,f.supp_nama,c.txsolardtl_liter,c.txsolardtl_harga,
-    c.txsolardtl_total,c.txsolardtl_petugas 
-    FROM `tx_solar` a JOIN m_site b ON a.id_site=b.id_site 
-    JOIN tx_solar_dtl c ON a.txsolar_id=c.txsolar_id 
-    LEFT JOIN m_driver d on c.driver_id=d.driver_id 
-    LEFT JOIN m_armada e on c.arm_id=e.arm_id 
-    LEFT JOIN m_supplier f on c.supp_id=f.supp_id JOIN (SELECT @rownum:=0) r where txsolar_tgl between '$_GET[tgl1]' and '$_GET[tgl2]' $shift $armada $driverid $suppid) a ";
+$joinQuery = "FROM (SELECT @rownum:=@rownum+1 norut, c.*, b.nama_site,
+    d.driver_name,e.arm_nolambung,f.supp_nama,a.txsolardtl_liter,a.txsolardtl_harga,
+    a.txsolardtl_total,a.txsolardtl_petugas,a.txsolardtl_tgltrans,a.txsolardtl_shift
+    FROM tx_solar_dtl a 
+    JOIN tx_solar c ON a.txsolar_id=c.txsolar_id 
+    JOIN m_site b ON c.id_site=b.id_site 
+    LEFT JOIN m_driver d on a.driver_id=d.driver_id 
+    LEFT JOIN m_armada e on a.arm_id=e.arm_id 
+    LEFT JOIN m_supplier f on a.supp_id=f.supp_id JOIN (SELECT @rownum:=0) r where 
+    txsolardtl_tgltrans between '$_GET[tgl1]' and '$_GET[tgl2]' $shift $armada $driverid $suppid) a ";
 $extraWhere = "";        
 
 //echo $joinQuery;

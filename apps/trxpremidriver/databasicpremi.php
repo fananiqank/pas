@@ -39,14 +39,14 @@ $columns = array(
 			return"$d";
 			}
 		  ),
-	array('db'      => 'concat(txbaspre_bulan,"-",txbaspre_tahun) AS periode','dt'   => 1, 'field' => 'periode',
+	array('db'      => 'periode','dt'   => 1, 'field' => 'periode',
 		   'formatter' => function( $d, $row ) {
 			$as=explode("-",$d);
 			return $d;
 					 
 			}
 		  ),
-	array('db'      => 'id_site','dt'   => 2, 'field' => 'id_site',
+	array('db'      => 'nama_site','dt'   => 2, 'field' => 'nama_site',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
@@ -100,7 +100,7 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (SELECT  @rownum:=@rownum+1 norut, a.* FROM trx_basicpremi_driver a JOIN (SELECT @rownum:=0) r) a";
+$joinQuery = "FROM (SELECT  @rownum:=@rownum+1 norut, a.*,concat(DATE(txbaspre_tgl1),' - ',DATE(txbaspre_tgl2)) as periode,nama_site FROM trx_basicpremi_driver a JOIN m_site b on a.id_site=b.id_site JOIN (SELECT @rownum:=0) r) a";
 $extraWhere = "";        
 
 echo json_encode(

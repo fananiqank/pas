@@ -24,7 +24,7 @@ if($('#tgl1').val()){
  
             // computing column Total of the complete result 
             var biayaTotal = api
-                .column( 6 )
+                .column( 7 )
                 .data()
                 .reduce( function (a, b) {
                     return intVal(a) + intVal(b);
@@ -34,7 +34,7 @@ if($('#tgl1').val()){
                 
             // Update footer by showing the total with the reference of the column index 
             $( api.column( 0 ).footer() ).html('Total');
-            $( api.column( 6 ).footer() ).html(biayaTotalz);
+            $( api.column( 7 ).footer() ).html(biayaTotalz);
         },
         "processing": true,
         "serverSide": true,
@@ -69,7 +69,7 @@ if($('#tgl1').val()){
         ],
         //"ajax": "../server_side/scripts/server_processing.php" NOTE: use serverside script to fatch the data
         "ajax": "apps/lapmekanik/data.php?id="+$('#id_mekanik').val()+"&tgl1="+$('#tgl1').val()+"&tgl2="+$('#tgl2').val()+"&armid="+$('#arm_id').val(),
-        "columnDefs": [{ targets: [6], className: 'dt-body-right',
+        "columnDefs": [{ targets: [7], className: 'dt-body-right',
                          render: $.fn.dataTable.render.number(',', '.',0, '') },
                        { targets: [0], className: 'dt-body-center' }],
         

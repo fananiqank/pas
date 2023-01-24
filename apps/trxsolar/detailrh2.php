@@ -12,7 +12,7 @@ foreach($db->select("(SELECT * FROM `tx_solar`where txsolar_id='$_GET[id]') a","
     <table class="table" id="detailsolar">
         <thead>
             <tr>
-                <th colspan="2">Tanggal</th>
+                <th colspan="2">Tanggal Transaksi</th>
                 <th colspan="6"><?=$_GET[tgl]?></th>
             </tr>
             <tr>

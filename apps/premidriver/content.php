@@ -30,6 +30,14 @@
                 <input type="hidden" class="form-control input-sm" name="premidriver_id" id="premidriver_id">
             </div>
         </div>
+        <div class="form-group row">
+            <label class="col-sm-4 control-label" for="w1-username">ROM</label>
+            <div class="col-sm-8">
+                <select class="select2 form-control block" id="rom_id" name="rom_id" required>
+                <?php include "tampilrom.php"; ?>
+                </select>
+            </div>
+        </div>
          <div class="form-group row">
             <label class="col-sm-4 control-label" for="w1-username">Jumlah Premi</label>
             <div class="col-sm-8">
@@ -59,6 +67,7 @@
                         <th>ID</th>
                         <th>Tgl Mulai</th>
                         <th>Tipe</th>
+                        <th>ROM</th>
                         <th>Jumlah</th>
                     </tr>
                 </thead>
@@ -67,6 +76,7 @@
                         <th>ID</th>
                         <th>Tgl Mulai</th>
                         <th>Tipe</th>
+                        <th>ROM</th>
                         <th>Jumlah</th>
                     </tr>
                 </tfoot>

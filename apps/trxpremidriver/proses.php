@@ -100,6 +100,23 @@ if($_GET[act]=='post'){
 	// 	");
 
 
+	// $db->query("
+	// 	insert into trx_basicpremi_driver_dtl (
+	// 	txbaspre_id,
+	// 	txbaspredtl_uraian,
+	// 	driver_id,
+	// 	txbaspredtl_jenis,
+	// 	txbaspredtl_jumlah,
+	// 	txbaspredtl_satuan,
+	// 	txbaspredtl_ttl,
+	// 	txbaspredtl_nolambung,
+	// 	rutejarak_id,
+	// 	id_site
+
+	// 	) 
+	// 	select $in p, case when arm_type_armada='2' then 'Premi Ritase' else 'Premi Tonase' end as tipegaji,   driver_id, case when arm_type_armada='2' then 'Ritase' else 'Tonase' end as x2,sum(case when arm_type_armada='2' then ritase else tonase end) as x,case when arm_type_armada='2' then 'Ritase' else 'Tonase' end as x3,sum(tpremi) tpremi,txangkut_nolambung, rutejarak_id,id_site from (select txangkut_tgl,driver_id,arm_type_armada, case when arm_type_armada = 2 then ritase*premi else tonase*premi end as tpremi, ritase, tonase,txangkut_nolambung,rutejarak_id, id_site from (select a.txangkut_tgl, b.driver_id, c.arm_type_armada, (txangkut_ritase) ritase, (txangkut_tonase) tonase, (select premidriver_jumlah from m_premidriver x where a.txangkut_tgl>=x.premidriver_tglmulai and x.arm_type_armada=c.arm_type_armada order by premidriver_id desc limit 1) premi, b.txangkut_nolambung,rutejarak_id, b.id_site from tx_ritase a JOIN tx_ritase_dtl b ON a.txangkut_id=b.txangkut_id JOIN m_armada c ON c.arm_id=b.arm_id where date(a.txangkut_tgl) between '$_POST[txangkut_tgl1]' and '$_POST[txangkut_tgl2]' and a.id_site='$_POST[id_site]') a) a group by arm_type_armada,txangkut_nolambung,rutejarak_id, id_site
+	// 	");
+
 	$db->query("
 		insert into trx_basicpremi_driver_dtl (
 		txbaspre_id,
@@ -114,14 +131,15 @@ if($_GET[act]=='post'){
 		id_site
 
 		) 
-		select $in p, case when arm_type_armada='2' then 'Premi Ritase' else 'Premi Tonase' end as tipegaji,   driver_id, case when arm_type_armada='2' then 'Ritase' else 'Tonase' end as x2,sum(case when arm_type_armada='2' then ritase else tonase end) as x,case when arm_type_armada='2' then 'Ritase' else 'Tonase' end as x3,sum(tpremi) tpremi,txangkut_nolambung, rutejarak_id,id_site from (select txangkut_tgl,driver_id,arm_type_armada, case when arm_type_armada = 2 then ritase*premi else tonase*premi end as tpremi, ritase, tonase,txangkut_nolambung,rutejarak_id, id_site from (select a.txangkut_tgl, b.driver_id, c.arm_type_armada, (txangkut_ritase) ritase, (txangkut_tonase) tonase, (select premidriver_jumlah from m_premidriver x where a.txangkut_tgl>=x.premidriver_tglmulai and x.premidriver_type=c.arm_type_armada order by premidriver_id desc limit 1) premi, b.txangkut_nolambung,rutejarak_id, b.id_site from tx_ritase a JOIN tx_ritase_dtl b ON a.txangkut_id=b.txangkut_id JOIN m_armada c ON c.arm_id=b.arm_id where date(a.txangkut_tgl) between '$_POST[txangkut_tgl1]' and '$_POST[txangkut_tgl2]' and a.id_site='$_POST[id_site]') a) a group by arm_type_armada,txangkut_nolambung,rutejarak_id, id_site
+		select $in p, case when arm_type_armada='2' then 'Premi Ritase' else 'Premi Tonase' end as tipegaji,   driver_id, case when arm_type_armada='2' then 'Ritase' else 'Tonase' end as x2,sum(case when arm_type_armada='2' then ritase else tonase end) as x,case when arm_type_armada='2' then 'Ritase' else 'Tonase' end as x3,sum(tpremi) tpremi,txangkut_nolambung, rutejarak_id,id_site from (select txangkut_tgl,driver_id,arm_type_armada, case when arm_type_armada = 2 then ritase*premi else tonase*premi end as tpremi, ritase, tonase,txangkut_nolambung,rutejarak_id, id_site from 
+(select a.txangkut_tgl, b.driver_id, c.arm_type_armada, (txangkut_ritase) ritase, (txangkut_tonase) tonase, COALESCE((select premidriver_jumlah from m_premidriver x where a.txangkut_tgl>=x.premidriver_tglmulai and x.arm_type_armada=c.arm_type_armada and x.rom_id=d.rom_id order by premidriver_id desc limit 1),0) premi, b.txangkut_nolambung,b.rutejarak_id, b.id_site 
+from tx_ritase a JOIN tx_ritase_dtl b ON a.txangkut_id=b.txangkut_id 
+JOIN m_armada c ON c.arm_id=b.arm_id
+JOIN m_rutejarak d ON d.rutejarak_id=b.rutejarak_id
+where date(a.txangkut_tgl) between '$_POST[txangkut_tgl1]' and '$_POST[txangkut_tgl2]' and a.id_site='$_POST[id_site]') a) a group by arm_type_armada,txangkut_nolambung,rutejarak_id, id_site
 		");
 	
-		// echo "select $in p, case when arm_type_armada='1' then 'Premi Ritase' else 'Premi Tonase' end as tipegaji,   driver_id, case when arm_type_armada='1' then 'Ritase' else 'Tonase' end as x2,sum(case when arm_type_armada='1' then ritase else tonase end) as x,case when arm_type_armada='1' then 'Ritase' else 'Tonase' end as x3,sum(tpremi) tpremi,txangkut_nolambung, rutejarak_id,id_site from (select txangkut_tgl,driver_id,arm_type_armada, case when arm_type_armada = 1 then ritase*premi else tonase*premi end as tpremi, ritase, tonase,txangkut_nolambung,rutejarak_id,id_site from (select a.txangkut_tgl, b.driver_id, c.arm_type_armada, (txangkut_ritase) ritase, (txangkut_tonase) tonase, (select premidriver_jumlah from m_premidriver x where a.txangkut_tgl>=x.premidriver_tglmulai and x.premidriver_type=c.arm_type_armada and premidriver_rute=rutejarak_id order by premidriver_id desc limit 1) premi, b.txangkut_nolambung, b.rutejarak_id,b.id_site from tx_ritase a 
-		// 					JOIN tx_ritase_dtl b ON a.txangkut_id=b.txangkut_id
-		// 					JOIN m_armada c ON c.arm_id=b.arm_id where date(a.txangkut_tgl) between '$_POST[txangkut_tgl1]' and '$_POST[txangkut_tgl2]' and a.id_site='$_POST[id_site]') a) a group by arm_type_armada,txangkut_nolambung, rutejarak_id, id_site";
-
-
+		
 
 } else if($_GET[act]=='del'){
 	

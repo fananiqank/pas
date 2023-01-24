@@ -25,7 +25,7 @@ foreach($db->select("(select * from txkehadiran where hadirdriver_bulan='$bln' A
 foreach($db->select("(select * from txkehadiran where hadirdriver_bulan='$bln' AND hadirdriver_tahun='$thn' and hadirdriver_type='2') a",'hadirdriver_jumlah') as $unit){}
 
   
-$perawatanunit = '500000';
+$perawatanunit = '0';
 if($dbasic['basicdriver_jumlah'] > 0){
 
   //echo "$unit[hadirdriver_jumlah]";
@@ -114,7 +114,7 @@ $upah = '0';
             <tr>
               <td align="center"><?=$no?></td>
               <td ><?=$val['rom_name'].' ke '.$val['tujuan_name']?></td>
-              <td align="center"><?=number_format($val['txbaspredtl_jumlah'])?> <?php if($val[txbaspredtl_jenis]<>"") {echo "(".$val[txbaspredtl_jenis].")";}?></td>
+              <td align="center"><?php if($val[txbaspredtl_jenis] == "Tonase"){ echo number_format($val['txbaspredtl_jumlah'],3);} else {echo number_format($val['txbaspredtl_jumlah']);}?> <?php if($val[txbaspredtl_jenis]<>"") {echo "(".$val[txbaspredtl_jenis].")";}?></td>
               <td >&ensp;Rp <span style="float: right;"><?=number_format($ritman)?>&nbsp;</span></td>
               <td >&ensp;Rp <span style="float: right;"><?=number_format($val['txbaspredtl_ttl'])?>&nbsp;</td>
             </tr>

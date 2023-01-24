@@ -43,7 +43,6 @@ if($_GET[act]=='post'){
 		
 	} else {
 		$db->query("insert into tx_maintenancedtl (
-				id_mtcdtl,
 				id_mtc,
 				id_barang,
 				qty_mtcdtl,
@@ -52,11 +51,10 @@ if($_GET[act]=='post'){
 				jenis
 			) 
 			values (
-				'$_POST[id_mtcdtl]',
 				'',
 				'$_POST[id_barang]',
 				'$_POST[qty]',
-				'1',
+				'0',
 				'$_SESSION[ID_PEG]',
 				'$_POST[jenis]'
 			)");

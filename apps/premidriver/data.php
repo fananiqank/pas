@@ -53,7 +53,14 @@ $columns = array(
 					 
 			}
 		  ),
-	array('db'      => 'premidriver_jumlah','dt'   => 3, 'field' => 'premidriver_jumlah',
+	array('db'      => 'rom_name','dt'   => 3, 'field' => 'rom_name',
+		   'formatter' => function( $d, $row ) {
+			
+			return"$d";
+					 
+			}
+		  ),
+	array('db'      => 'premidriver_jumlah','dt'   => 4, 'field' => 'premidriver_jumlah',
 		   'formatter' => function( $d, $row ) {
 			
 			return"$d";
@@ -81,7 +88,7 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (select *,case when premidriver_type=1 then 'Ritase' else 'Tonase' end as premidrivertype from m_premidriver) as asi";
+$joinQuery = "FROM (select a.*,case when premidriver_type=1 then 'Ritase' else 'Tonase' end as premidrivertype,b.rom_name from m_premidriver a left join m_runofmine b on a.rom_id=b.rom_id) as asi";
 $extraWhere = "";        
 
 echo json_encode(

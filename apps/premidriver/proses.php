@@ -7,27 +7,29 @@ $date = date("Y-m-d H:i:s");
 
 if($_GET[act]=='post'){
 
-	
+	if($_POST[premidriver_type] == 1){$armtype = 2;}else{$armtype = 1;}
 	$db->query("
 		insert into m_premidriver (
-			premidriver_id,
 			premidriver_jumlah,
 			premidriver_tglmulai,
 			premidriver_userinput,
 			premidriver_tglinput,
-			premidriver_type
+			premidriver_type,
+			arm_type_armada,
+			rom_id
 		) 
 		values (
-			'$_POST[premidriver_id]',
 			'$_POST[premidriver_jumlah]',
 			'$_POST[premidriver_tglmulai]',
 			'$_SESSION[ID_PEG]',
 			NOW(),
-			'$_POST[premidriver_type]'
+			'$_POST[premidriver_type]',
+			'$armtype',
+			'$_POST[rom_id]'
 		)
 		");
 	
-	echo "";
+
 
 } else if($_GET[act]=='get'){
 	$dt=$db->select("m_premidriver","*","premidriver_id='$_GET[id]'");

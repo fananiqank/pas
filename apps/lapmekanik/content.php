@@ -50,7 +50,7 @@
             <table class="table table-striped table-bordered" id="tablemekanik">
                 <thead>
                     <tr>
-                        <th colspan="7">Periode : <?=$_GET['tgl1']." - ".$_GET['tgl2']?></th>
+                        <th colspan="8">Periode : <?=$_GET['tgl1']." - ".$_GET['tgl2']?></th>
                     </tr>
                     <tr>
                         <th style="text-align: center;">ID</th>
@@ -65,7 +65,7 @@
                 </thead>
                 <tfoot align="right">
                     <tr>
-                        <th colspan="6"></th>
+                        <th colspan="7"></th>
                         <th></th>
                     </tr>
                 </tfoot>

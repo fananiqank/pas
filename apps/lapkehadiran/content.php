@@ -36,7 +36,6 @@
                 <option value="0">Pilih Shift</option>
                 <option value="1" <?php if($_GET[sf] == 1){echo "selected";} ?>>Shift 1</option>
                 <option value="2" <?php if($_GET[sf] == 2){echo "selected";} ?>>Shift 2</option>
-                <option value="3" <?php if($_GET[sf] == 3){echo "selected";} ?>>Shift 3</option>
             </select>
         </div>
         <!-- <div class="col-sm-2">

@@ -23,6 +23,13 @@
             </div>
         </div>
         <div class="form-group row">
+            <label class="col-sm-4 control-label" for="w1-username">Kode Supplier</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control input-sm" name="supp_kode" id="supp_kode" maxlength="5" required>
+                
+            </div>
+        </div>
+        <div class="form-group row">
             <label class="col-sm-4 control-label" for="w1-username">Alamat</label>
             <div class="col-sm-8">
                 <input type="text" class="form-control input-sm" name="supp_alamat" id="supp_alamat" required>
@@ -70,6 +77,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Kode</th>
                         <th>Nama</th>
                         <th>Alamat</th>
                         <th>Telp</th>
@@ -81,6 +89,7 @@
                 <tfoot>
                     <tr>
                         <th>ID</th>
+                        <th>Kode</th>
                         <th>Nama</th>
                         <th>Alamat</th>
                         <th>Telp</th>
