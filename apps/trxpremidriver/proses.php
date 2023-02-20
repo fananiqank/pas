@@ -136,7 +136,7 @@ if($_GET[act]=='post'){
 from tx_ritase a JOIN tx_ritase_dtl b ON a.txangkut_id=b.txangkut_id 
 JOIN m_armada c ON c.arm_id=b.arm_id
 JOIN m_rutejarak d ON d.rutejarak_id=b.rutejarak_id
-where date(a.txangkut_tgl) between '$_POST[txangkut_tgl1]' and '$_POST[txangkut_tgl2]' and a.id_site='$_POST[id_site]') a) a group by arm_type_armada,txangkut_nolambung,rutejarak_id, id_site
+where date(a.txangkut_tgl) between '$_POST[txangkut_tgl1]' and '$_POST[txangkut_tgl2]' and a.id_site='$_POST[id_site]') a) a group by arm_type_armada,txangkut_nolambung,rutejarak_id, id_site,driver_id
 		");
 	
 		
