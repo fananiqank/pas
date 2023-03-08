@@ -24,48 +24,46 @@ $db=new kelas();
 
 // DB table to use
 
-$table = "tx_solar";
+$table = "m_armada";
 
 // Table's primary key
-$primaryKey = 'txsolar_id';
+$primaryKey = 'arm_id';
 
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-	array('db'      => 'norut','dt'   => 0, 'field' => 'norut',
+	array('db'      => 'no_urut','dt'   => 0, 'field' => 'no_urut',
 		   'formatter' => function( $d, $row ) {
 			return"$d";
 			}
 		  ),
-	array('db'      => 'txsolardtl_tgltrans','dt'   => 1, 'field' => 'txsolardtl_tgltrans',
+	array('db'      => 'arm_norangka','dt'   => 1, 'field' => 'arm_norangka',
 		   'formatter' => function( $d, $row ) {
-			return"$d";
-			}
-		  ),
-	array('db'      => 'txsolardtl_shift','dt'   => 2, 'field' => 'txsolardtl_shift',
-		   'formatter' => function( $d, $row ) {
-			return"$d";
-			}
-		  ),
-	array('db'      => 'totalliter','dt'   => 3, 'field' => 'totalliter',
-		   'formatter' => function( $d, $row ) {
-			return number_format($d,2);
-			}
-		  ),
-	array('db'      => 'totaltotal','dt'   => 4, 'field' => 'totaltotal',
-		   'formatter' => function( $d, $row ) {
-			return number_format($d,0);
-			}
-		  ),
-	array('db'      => 'gabs','dt'   => 5, 'field' => 'gabs',
-		   'formatter' => function( $d, $row ) {
-		   	$exp = explode("_", $d);
-			// return "<a href='javascript:void(0)' data-tgl=\"$exp[0]\" data-shift=\"$exp[1]\" data-toggle=\"modal\" id=\"detailrh\">Detail</a> | <a href='javascript:void(0)' onclick=\"hapussolar($d)\" >Hapus</a>";
-			return "<a href='javascript:void(0)' data-tgl=\"$exp[0]\" data-shift=\"$exp[1]\" data-toggle=\"modal\" id=\"detailrh2\">Detail</a> | <a href='javascript:void(0)' onclick=\"hapussolar('$exp[0]','$exp[1]')\" >Hapus</a>";
-			// return "";
 			
+			return"$d";
+					 
+			}
+		  ),
+	array('db'      => 'arm_nopol','dt'   => 2, 'field' => 'arm_nopol',
+		   'formatter' => function( $d, $row ) {
+			
+			return"$d";
+					 
+			}
+		  ),
+	array('db'      => 'arm_nolambung','dt'   => 3, 'field' => 'arm_nolambung',
+		   'formatter' => function( $d, $row ) {
+			
+			return"$d";
+					 
+			}
+		  ),
+	array('db'      => 'arm_id','dt'   => 4, 'field' => 'arm_id',
+		   'formatter' => function( $d, $row ) {
+			//return "<a href='javascript:void(0)' onclick=\"delCart('$d')\">Hapus</a>";
+			return "<a href='javascript:void(0)' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh\">History</a>";
 					 
 			}
 		  ),
@@ -92,7 +90,7 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (SELECT @rownum:=@rownum+1 norut,txsolardtl_tgltrans,txsolardtl_shift,sum(txsolardtl_liter) totalliter,sum(txsolardtl_total) totaltotal,concat(txsolardtl_tgltrans,'_',txsolardtl_shift) gabs from tx_solar_dtl JOIN (SELECT @rownum:=0) r GROUP BY txsolardtl_tgltrans,txsolardtl_shift ) a
+$joinQuery = "FROM (SELECT @rownum:=@rownum+1 no_urut, a.arm_id,a.arm_norangka,a.arm_nopol,a.arm_nolambung FROM m_armada a JOIN (SELECT @rownum:=0) r ) a
 			";
 $extraWhere = "";        
 

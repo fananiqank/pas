@@ -51,14 +51,13 @@ if($_GET[act]=='post'){
 				jenis
 			) 
 			values (
-				'0',
+				'',
 				'$_POST[id_barang]',
 				'$_POST[qty]',
 				'0',
 				'$_SESSION[ID_PEG]',
 				'$_POST[jenis]'
 			)");
-	
 	
 	}
 } else if($_GET[act]=='get'){

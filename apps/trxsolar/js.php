@@ -143,13 +143,15 @@ $(document).on('click','#detailrh',function(e){
             );
 });
 
-function hapussolar(a){
+function hapussolar(tgl,shift){
     // alert(a);
-    
-    $.get( "apps/trxsolar/proses.php?act=hapussolar&id="+a, function( data ) {
+    $('#ritasesolar').html('<img src="./assets/image/spinner.gif">');
+    $.get( "apps/trxsolar/proses.php?act=hapussolar&tgl="+tgl+"&shift="+shift, function( data ) {
         // $( ".result" ).html( data );
+
         alert(data);
-        $('#ritasesolar').DataTable().ajax.reload();
+        //$('#ritasesolar').DataTable().ajax.reload();
+        window.location.reload();
     });
 }
 

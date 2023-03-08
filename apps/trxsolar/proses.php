@@ -55,10 +55,16 @@ if($_GET[act]=='save'){
 
 
 } else if($_GET[act]=='hapussolar'){
+	$selhps = $db->select("tx_solar_dtl","*","txsolardtl_tgltrans = '$_GET[tgl]' and txsolardtl_shift = '$_GET[shift]'");
+	foreach($selhps as $hps){
+		$db->query("insert into tx_solar_dtl_rem (txsolardtl_id,txsolar_id,arm_id,driver_id,txsolardtl_liter,txsolardtl_harga,txsolardtl_total,
+txsolardtl_tgl,txsolardtl_petugas,supp_id,txsolardtl_shift,txsolardtl_tgltrans) values ('$hps[txsolardtl_id]','$hps[txsolar_id]','$hps[arm_id]','$hps[driver_id]','$hps[txsolardtl_liter]','$hps[txsolardtl_harga]','$hps[txsolardtl_total]','$hps[txsolardtl_tgl]','$hps[txsolardtl_petugas]','$hps[supp_id]','$hps[txsolardtl_shift]','$hps[txsolardtl_tgltrans]')");	
+	}
+	$dt=$db->query("delete from tx_solar_dtl where txsolardtl_tgltrans = '$_GET[tgl]' and txsolardtl_shift = '$_GET[shift]'");
 	
-	$dt=$db->delete("tx_solar",array("txsolar_id"=> $_GET[id]));
-	$dt2=$db->delete("tx_solar_dtl",array("txsolar_id"=> $_GET[id]));
-	if($dt && $dt2){
+	//$dt=$db->delete("tx_solar",array("txsolar_id"=> $_GET[id]));
+	//$dt2=$db->delete("tx_solar_dtl",array("txsolar_id"=> $_GET[id]));
+	if($dt){
 		echo "Telah Dihapus";
 	} else {
 		echo "Gagal";

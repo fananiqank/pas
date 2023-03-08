@@ -23,7 +23,15 @@ if($('#tgl1').val()){
             };
  
             // computing column Total of the complete result 
+            
             var biayaTotal = api
+                .column( 7 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+
+            var biayaTotal2 = api
                 .column( 8 )
                 .data()
                 .reduce( function (a, b) {
@@ -31,10 +39,12 @@ if($('#tgl1').val()){
                 }, 0 );
                 
             var biayaTotalz = biayaTotal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");;
+            var biayaTotalz2 = biayaTotal2.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");;
                 
             // Update footer by showing the total with the reference of the column index 
-            $( api.column( 0 ).footer() ).html('Total');
-            $( api.column( 8 ).footer() ).html(biayaTotalz);
+            $( api.column( 6 ).footer() ).html('Total');
+            $( api.column( 7 ).footer() ).html(biayaTotalz);
+            $( api.column( 8 ).footer() ).html(biayaTotalz2);
         },
         "processing": true,
         "serverSide": true,
@@ -70,6 +80,8 @@ if($('#tgl1').val()){
         //"ajax": "../server_side/scripts/server_processing.php" NOTE: use serverside script to fatch the data
         "ajax": "apps/lapsolar/data.php?shift="+$('#shift').val()+"&tgl1="+$('#tgl1').val()+"&tgl2="+$('#tgl2').val()+"&armid="+$('#arm_id').val()+"&driverid="+$('#driver_id').val()+"&suppid="+$('#supp_id').val(),
         "columnDefs": [{ targets: [8], className: 'dt-body-right',
+                         render: $.fn.dataTable.render.number(',', '.',0, '') },
+                       { targets: [7], className: 'dt-body-right',
                          render: $.fn.dataTable.render.number(',', '.',0, '') },
                        { targets: [0], className: 'dt-body-center' }],
         

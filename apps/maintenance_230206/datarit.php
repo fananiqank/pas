@@ -23,11 +23,16 @@ $db=new kelas();
  */
 
 // DB table to use
+if($_GET['idmtc'] == ''){
+	$idmtc = "where status_mtcdtl = 0 and created_by='$_SESSION[ID_PEG]'";
+} else {
+	$idmtc = "where status_mtcdtl = 1 and a.id_mtc='$_GET[idmtc]'";
+}
 
-$table = "tx_solar";
+$table = "tx_maintenancedtl";
 
 // Table's primary key
-$primaryKey = 'txsolar_id';
+$primaryKey = 'id_mtcdtl';
 
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
@@ -39,40 +44,48 @@ $columns = array(
 			return"$d";
 			}
 		  ),
-	array('db'      => 'txsolardtl_tgltrans','dt'   => 1, 'field' => 'txsolardtl_tgltrans',
+	array('db'      => 'nama_barang','dt'   => 1, 'field' => 'nama_barang',
 		   'formatter' => function( $d, $row ) {
-			return"$d";
-			}
-		  ),
-	array('db'      => 'txsolardtl_shift','dt'   => 2, 'field' => 'txsolardtl_shift',
-		   'formatter' => function( $d, $row ) {
-			return"$d";
-			}
-		  ),
-	array('db'      => 'totalliter','dt'   => 3, 'field' => 'totalliter',
-		   'formatter' => function( $d, $row ) {
-			return number_format($d,2);
-			}
-		  ),
-	array('db'      => 'totaltotal','dt'   => 4, 'field' => 'totaltotal',
-		   'formatter' => function( $d, $row ) {
-			return number_format($d,0);
-			}
-		  ),
-	array('db'      => 'gabs','dt'   => 5, 'field' => 'gabs',
-		   'formatter' => function( $d, $row ) {
-		   	$exp = explode("_", $d);
-			// return "<a href='javascript:void(0)' data-tgl=\"$exp[0]\" data-shift=\"$exp[1]\" data-toggle=\"modal\" id=\"detailrh\">Detail</a> | <a href='javascript:void(0)' onclick=\"hapussolar($d)\" >Hapus</a>";
-			return "<a href='javascript:void(0)' data-tgl=\"$exp[0]\" data-shift=\"$exp[1]\" data-toggle=\"modal\" id=\"detailrh2\">Detail</a> | <a href='javascript:void(0)' onclick=\"hapussolar('$exp[0]','$exp[1]')\" >Hapus</a>";
-			// return "";
 			
+			return"$d";
 					 
 			}
 		  ),
-	
-		  
-	
-	
+	array('db'      => 'qty_mtcdtl','dt'   => 2, 'field' => 'qty_mtcdtl',
+		   'formatter' => function( $d, $row ) {
+			
+			return"$d";
+					 
+			}
+		  ),
+	array('db'      => 'nama_satuan','dt'   => 3, 'field' => 'nama_satuan',
+		   'formatter' => function( $d, $row ) {
+			
+			return"$d";
+					 
+			}
+		  ),
+	array('db'      => 'jenis','dt'   => 4, 'field' => 'jenis',
+		   'formatter' => function( $d, $row ) {
+			if($d == 1){
+				$jenisbrg = "Baru";
+			} else {
+				$jenisbrg = "Repair";
+			}
+			return"$jenisbrg";
+					 
+			}
+		  ),
+	array('db'      => 'id_mtcdtl','dt'   => 5, 'field' => 'id_mtcdtl',
+		   'formatter' => function( $d, $row ) {
+		   	if($_GET['idmtc'] == ''){
+				return "<a href='javascript:void(0)' onclick='delCart($d)'>Del</a>";
+			} else {
+				return "";
+			}
+					 
+			}
+		  ),
 		
 );
 
@@ -92,8 +105,7 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (SELECT @rownum:=@rownum+1 norut,txsolardtl_tgltrans,txsolardtl_shift,sum(txsolardtl_liter) totalliter,sum(txsolardtl_total) totaltotal,concat(txsolardtl_tgltrans,'_',txsolardtl_shift) gabs from tx_solar_dtl JOIN (SELECT @rownum:=0) r GROUP BY txsolardtl_tgltrans,txsolardtl_shift ) a
-			";
+$joinQuery = "FROM (SELECT @rownum:=@rownum+1 norut, a.*, b.nama_barang, c.nama_satuan FROM tx_maintenancedtl a JOIN m_barang b ON a.id_barang=b.id_barang JOIN m_satuan c ON b.id_satuan=c.id_satuan JOIN (SELECT @rownum:=0) r $idmtc) a";
 $extraWhere = "";        
 
 echo json_encode(

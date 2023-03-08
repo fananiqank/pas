@@ -130,15 +130,15 @@ $(document).ready(function(){
 
 
 function delCart(a){
-    //if($('idmtc').val() == ''){
+    if($('idmtc').val() == ''){
         $.get( "apps/maintenance/proses.php?act=del&id="+a, function( data ) {
             // $( ".result" ).html( data );
 
             $('.server-side').DataTable().ajax.reload();
         });
-    //} else {
-    //    alert("Tidak dapat dihapus!!");
-   //}
+    } else {
+        alert("Tidak dapat dihapus!!");
+    }
 }
 
 function delCart2(a){

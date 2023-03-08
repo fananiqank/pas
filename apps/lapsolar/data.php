@@ -97,16 +97,16 @@ $columns = array(
 					 
 			}
 		  ),
-	array('db'      => 'txsolardtl_liter','dt'   => 6, 'field' => 'txsolardtl_liter',
+	array('db'      => 'txsolardtl_harga','dt'   => 6, 'field' => 'txsolardtl_harga',
 		   'formatter' => function( $d, $row ) {
-			$bliter = number_format($d);
+			$bbiaya = number_format($d);
 			return"$d";
 					 
 			}
 		  ),
-	array('db'      => 'txsolardtl_harga','dt'   => 7, 'field' => 'txsolardtl_harga',
+	array('db'      => 'txsolardtl_liter','dt'   => 7, 'field' => 'txsolardtl_liter',
 		   'formatter' => function( $d, $row ) {
-			$bbiaya = number_format($d);
+			$bliter = number_format($d);
 			return"$d";
 					 
 			}
