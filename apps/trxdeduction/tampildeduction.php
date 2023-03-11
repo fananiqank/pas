@@ -6,7 +6,7 @@ require_once "../../webclass.php";
 $db = new kelas();
 }
 
-echo "<option value=''>Pilih Deduction</option>";
+echo "<option value=''>Pilih Kasbon</option>";
  foreach($db->select("m_deduction","*","") as $val){
 	if($_GET['id_ddc'] == $val['id_ddc']) {
 		$s = "selected";

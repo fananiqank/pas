@@ -3,7 +3,7 @@
     <div class="card-actions">
         <a href="#" class="fa fa-caret-down"></a>
     </div>
-    <h2 class="card-title">Deduction</h2>
+    <h2 class="card-title">Kasbon</h2>
     <p class="card-subtitle">
     </p>
 </header>
@@ -50,7 +50,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel18"><i class="la la-list"></i>Detail Deduction</h4>
+                <h4 class="modal-title" id="myModalLabel18"><i class="la la-list"></i>Detail Kasbon</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

@@ -4,7 +4,7 @@
     <div class="card-actions">
         <a href="#" class="fa fa-caret-down"></a>
     </div>
-    <h2 class="card-title">Input Deduction Driver</h2>
+    <h2 class="card-title">Input Kasbon Driver</h2>
     <p class="card-subtitle">
     </p>
 </header>
@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="form-group row form-inline">
-            <label class="col-sm-2 control-label" for="w1-username">Dedeuction</label>
+            <label class="col-sm-2 control-label" for="w1-username">Jenis Kasbon</label>
             <div class="col-sm-3">
                 <select class="select2 form-control block headmas" id="id_ddc" name="id_ddc" required>
                     <?php include "tampildeduction.php"; ?>

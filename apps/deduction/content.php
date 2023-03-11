@@ -6,7 +6,7 @@
     <div class="card-actions">
         <a href="#" class="fa fa-caret-down"></a>
     </div>
-    <h2 class="card-title">Master Deduction</h2>
+    <h2 class="card-title">Master Kasbon</h2>
     <p class="card-subtitle">
     </p>
 </header>
@@ -16,7 +16,7 @@
     <div class="col-md-6">        
     <form class="form-user" id="form" method="post" enctype="multipart/form-data" novalidate autocomplete="off">
       <div class="form-group row">
-            <label class="col-sm-4 control-label" for="w1-username">Nama Deduction</label>
+            <label class="col-sm-4 control-label" for="w1-username">Nama</label>
             <div class="col-sm-8">
                 <input type="text" class="form-control input-sm" name="nama_ddc" id="nama_ddc" required>
                 <input type="hidden" class="form-control input-sm" name="id_ddc" id="id_ddc">

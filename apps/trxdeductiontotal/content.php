@@ -6,7 +6,7 @@
     <div class="card-actions">
         <a href="#" class="fa fa-caret-down"></a>
     </div>
-    <h2 class="card-title">Deduction Total</h2>
+    <h2 class="card-title">Kasbon Total</h2>
     <p class="card-subtitle">
     </p>
 </header>
@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-4 control-label" for="w1-username">Deduction</label>
+            <label class="col-sm-4 control-label" for="w1-username">Jenis Kasbon</label>
             <div class="col-sm-8">
                 <select class="select2 form-control block headmas" id="id_ddc" name="id_ddc" required>
                     <?php include "tampildeduction.php"; ?>
@@ -60,9 +60,9 @@
                     <tr>
                         <th>ID</th>
                         <th>Driver</th>
-                        <th>Deduction</th>
+                        <th>Total Kasbon</th>
                         <th>Bayar</th>
-                        <th>Sisa Deduction</th>
+                        <th>Sisa Kasbon</th>
                         <!-- <th>Aksi</th> -->
                     </tr>
                 </thead>
@@ -70,9 +70,9 @@
                     <tr>
                         <th>ID</th>
                         <th>Driver</th>
-                        <th>Deduction</th>
+                        <th>Total Kasbon</th>
                         <th>Bayar</th>
-                        <th>Sisa Deduction</th>
+                        <th>Sisa Kasbon</th>
                         <!-- <th>Aksi</th> -->
                     </tr>
                 </tfoot>
