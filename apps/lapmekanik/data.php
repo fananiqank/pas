@@ -128,7 +128,7 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (select @rownum:=@rownum+1 no_urut,a.*,b.name_mekanik,c.no_mtc,concat(substr(d.arm_norangka,-5),' - ',d.arm_nolambung) as gabs,DATE(c.tgl_mtc) as tgl_mtc from tx_mekanik a join m_mekanik b using(id_mekanik) join tx_maintenance c using(id_mtc) join m_armada d using(arm_id) JOIN (SELECT @rownum:=0) r where DATE(tgltransinput) between '$_GET[tgl1]' and '$_GET[tgl2]' $idmekanik $armada) a ";
+$joinQuery = "FROM (select @rownum:=@rownum+1 no_urut,a.*,b.name_mekanik,c.no_mtc,concat(substr(d.arm_norangka,-5),' - ',d.arm_nolambung) as gabs,DATE(c.tgl_mtc) as tgl_mtc from tx_mekanik a join m_mekanik b using(id_mekanik) join tx_maintenance c using(id_mtc) join m_armada d using(arm_id) JOIN (SELECT @rownum:=0) r where DATE(c.tgl_mtc) between '$_GET[tgl1]' and '$_GET[tgl2]' $idmekanik $armada) a ";
 $extraWhere = "";        
 
 //echo $joinQuery;

@@ -66,10 +66,14 @@ $columns = array(
 			return"$d";
 					 
 			}
+		  ),
+	array('db'      => 'premidriver_id','dt'   => 5, 'field' => 'premidriver_id',
+		   'formatter' => function( $d, $row ) {
+			
+			return"<a href='javascript:void(0)' onclick=\"return deleted($d);\">Hapus</a>";
+					 
+			}
 		  )
-	
-	
-		
 );
 
 // SQL server connection information
@@ -89,7 +93,7 @@ $sql_details = array(
 require('../../lib/ssp.customized.class.php' );
 
 $joinQuery = "FROM (select a.*,case when premidriver_type=1 then 'Ritase' else 'Tonase' end as premidrivertype,b.rom_name from m_premidriver a left join m_runofmine b on a.rom_id=b.rom_id) as asi";
-$extraWhere = "";        
+$extraWhere = "";
 
 echo json_encode(
 	SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $joinQuery, $extraWhere )

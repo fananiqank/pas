@@ -62,7 +62,7 @@ if($_GET[jns] == 1){$jns = "Baru";} else {$jns = "Bekas/Repair";}
         
         <th>Tanggal</th>
         <th>No Surat</th>
-        <th>Remark</th>
+        <th>Keterangan</th>
         <th>Masuk</th>
         <th>Keluar</th>
         <th>Saldo Akhir</th>
@@ -88,33 +88,43 @@ if($_GET[jns] == 1){$jns = "Baru";} else {$jns = "Bekas/Repair";}
         $judulsaldo = "Saldo Bulan Lalu ".$tahun1."-".$bulan1;
     }
     // echo "select no_transmutasi,id_barang,masukmutasi,keluarmutasi,tgl_mutasi,(masukmutasi-keluarmutasi) as sdakhir from tx_mutasi where id_barang=$_GET[id] $gdg and $tglbet and jenisbrg = $_GET[jns]";
-
     foreach ($db->select("(select (coalesce(sum(masukmutasi),0)-coalesce(sum(keluarmutasi),0)) sdakhir,date(tgl_mutasi)as tglsaldo
            from tx_mutasi a where id_barang=$_GET[id] $gdg and $tglbet1 and jenisbrg = $_GET[jns] GROUP BY id_barang) a","*") as $ax){}
 
-    if($_GET[tg1] > $ax[tglsaldo] ){ 
+    if($_GET[tg1] > $ax[tglsaldo] ){
 
-    	 if($_GET[tg1] >= $tglSkrng){
+    	 if($_GET[tg1] > $tglSkrng){
     	 	$selawal = $db->select("(select (coalesce(sum(masukmutasi),0)-coalesce(sum(keluarmutasi),0)) sdakhir,date(tgl_mutasi)as tglsaldo from tx_mutasi a where id_barang=$_GET[id] $gdg and $tglbet1 and jenisbrg = $_GET[jns] GROUP BY id_barang) a","*");
 
     	 	foreach ($selawal as $awal) {}
            echo "<tr>
-            <td colspan='4'>$judulsaldo</td>
+            <td colspan='5'>$judulsaldo</td>
             <td>$awal[sdakhir]</td>
             </tr>";
     		$totalsdakhir = $awal[sdakhir];
 
     	 }else{
-    	 	$tglbet = "DATE(tgl_mutasi) between '$ax[tglsaldo]' and '$_GET[tg2]'";
-
-	    	$selmut = $db->select("(select no_transmutasi,id_barang,masukmutasi,keluarmutasi,tgl_mutasi,sum(masukmutasi-keluarmutasi) over (ORDER BY tgl_mutasi,no_transmutasi) as sdakhir from tx_mutasi a where id_barang=$_GET[id] $gdg and $tglbet and jenisbrg = $_GET[jns]) a","*");
+    	 	
+	    	$selmut = $db->select("(select no_transmutasi,id_barang,sum(masukmutasi) masukmutasi,sum(keluarmutasi) keluarmutasi,tgl_mutasi,sum(sum(masukmutasi)-sum(keluarmutasi)) over (ORDER BY tgl_mutasi,no_transmutasi) as sdakhir from (
+select 'Saldo Akhir Tanggal Sebelumnya' as no_transmutasi,sum(masukmutasi) masukmutasi,sum(keluarmutasi) keluarmutasi,id_barang,'' as tgl_mutasi 
+from tx_mutasi a where id_barang=68 and a.id_gudang = 2 and jenisbrg = 1 and DATE(tgl_mutasi) < '$_GET[tg1]'
+union 
+select no_transmutasi,sum(masukmutasi) masukmutasi,sum(keluarmutasi) keluarmutasi,id_barang,tgl_mutasi
+from tx_mutasi a where id_barang=68 and a.id_gudang = 2 and jenisbrg = 1 and DATE(tgl_mutasi) between '$_GET[tg1]' and '$_GET[tg2]' GROUP BY no_transmutasi,tgl_mutasi) a GROUP BY no_transmutasi,tgl_mutasi ORDER BY tgl_mutasi) a","*");
     	 }	 
 
     }
 
     else{
     	
-    	$selmut = $db->select("(select no_transmutasi,id_barang,masukmutasi,keluarmutasi,tgl_mutasi,sum(masukmutasi-keluarmutasi) over (ORDER BY tgl_mutasi,no_transmutasi) as sdakhir from tx_mutasi a where id_barang=$_GET[id] $gdg and $tglbet and jenisbrg = $_GET[jns]) a","*");
+    	$selmut = $db->select("(select no_transmutasi,id_barang,sum(masukmutasi) masukmutasi,sum(keluarmutasi) keluarmutasi,tgl_mutasi,sum(sum(masukmutasi)-sum(keluarmutasi)) over (ORDER BY tgl_mutasi,no_transmutasi) as sdakhir
+from (
+select 'Saldo Akhir Bulan Sebelumnya' as no_transmutasi,sum(masukmutasi) masukmutasi,sum(keluarmutasi) keluarmutasi,id_barang,'' as tgl_mutasi 
+from tx_mutasi a where id_barang=$_GET[id] $gdg and jenisbrg = $_GET[jns] and concat(YEAR(tgl_mutasi),MONTH(tgl_mutasi)) < concat(YEAR(now()),MONTH(now()))
+union
+select no_transmutasi,sum(masukmutasi) masukmutasi,sum(keluarmutasi) keluarmutasi,id_barang,tgl_mutasi
+from tx_mutasi a where id_barang=$_GET[id] $gdg and jenisbrg = $_GET[jns] and concat(YEAR(tgl_mutasi),MONTH(tgl_mutasi)) = concat(YEAR(now()),MONTH(now())) GROUP BY no_transmutasi,tgl_mutasi) a GROUP BY no_transmutasi,tgl_mutasi ORDER BY tgl_mutasi
+) a","*");
         
     }
 
@@ -134,20 +144,27 @@ if($_GET[jns] == 1){$jns = "Baru";} else {$jns = "Bekas/Repair";}
         if(substr($mts[no_transmutasi], 0,2) == 'MT'){
             foreach($db->select("tx_maintenance b join m_armada d on b.arm_id=d.arm_id","concat('Maintenance Armada : ',substr(d.arm_norangka,-5),' - ',d.arm_nolambung) as keterangan","no_mtc='$mts[no_transmutasi]'") as $mtc){}
                 $notamutasi = "<a href='apps/maintenance/pdfmtc.php?id=1&mtc=$mts[no_transmutasi]' target='_blank'>$mts[no_transmutasi]</a>";
+                $remarks= $mtc[keterangan];
         } else if(substr($mts[no_transmutasi], 0,2) == 'BM'){
             foreach($db->select("tx_barangmasuk","concat('Terima dari Supplier : ',nama_supp) as keterangan,id_brgmasuk","no_brgmasuk='$mts[no_transmutasi]' and substr(no_brgmasuk,1,2) = 'BM'") as $mtc){}
                 $notamutasi = "<a href='apps/barangmasuk/cetak_pdf.php?id=$mtc[id_brgmasuk]' target='_blank'>$mts[no_transmutasi]</a>";
+                $remarks= $mtc[keterangan];
         } else if(substr($mts[no_transmutasi], 0,2) == 'SO'){
             foreach($db->select("tx_stockopname","concat('Stock Opname tgl : ',DATE(inputdt_so)) as keterangan","noso='$mts[no_transmutasi]'") as $mtc){}
                 $notamutasi = $mts[no_transmutasi];
+                $remarks= $mtc[keterangan];
         } else if(substr($mts[no_transmutasi], 0,2) == 'BK'){
             foreach($db->select("tx_barangkeluar","concat('Barang Keluar : ',DATE(date_brgkeluar)) as keterangan,id_brgkeluar","no_brgkeluar='$mts[no_transmutasi]'") as $mtc){}
                 $notamutasi = "<a href='apps/barangkeluar/cetak_pdf.php?id=$mtc[id_brgkeluar]' target='_blank'>$mts[no_transmutasi]</a>";
+                $remarks= $mtc[keterangan];
+        } else {
+            $notamutasi = "-";
+            $remarks = $mts[no_transmutasi];
         }
             echo "<tr>
             <td>$mts[tgl_mutasi]</td>
             <td>$notamutasi</td>
-            <td>$mtc[keterangan]</td>
+            <td>$remarks</td>
             <td>$mts[masukmutasi]</td>
             <td>$mts[keluarmutasi]</td>
             <td>$mts[sdakhir]</td>

@@ -63,7 +63,6 @@ $carmada = $db->select("(select *,SUBSTR(arm_norangka,-5) norangka,concat(SUBSTR
                         <th>Dumping</th>
                         <th>Tonase</th>
                         <th>Jarak</th>
-                        
                     </tr>           
                 </thead>
                 <tbody>
@@ -92,18 +91,14 @@ $carmada = $db->select("(select *,SUBSTR(arm_norangka,-5) norangka,concat(SUBSTR
                                 $judulsaldo = "Saldo Bulan Lalu ".$tahun1."-".$bulan1;
                             }
                            
-                          $persediaan = $db->select("(SELECT a.txangkut_tgl,e.rom_name,tujuan_name,concat((case when e.arm_type_armada = 1 then 'DT' else 'SDT' end),'-',
-                                                        norangka,'-',e.arm_nolambung) as armada,rit,tonase,e.driver_name,nosk, rutejarak_jarak 
-                                                        FROM `tx_ritase` a JOIN m_site b ON a.id_site=b.id_site 
-                                                        JOIN (SELECT a.txangkut_id,c.tujuan_name, d.rom_name, e.driver_name,
-                                                        f.arm_nolambung,SUBSTR(f.arm_norangka,-5) norangka,sum(txangkut_ritase) rit,sum(txangkut_tonase) tonase,
-                                                        f.cust_id,f.arm_type_armada,nosk, b.rutejarak_jarak  FROM `tx_ritase_dtl` a JOIN m_rutejarak b ON a.rutejarak_id=b.rutejarak_id 
-                                                        JOIN m_tujuan c ON c.tujuan_id=b.tujuan_id JOIN m_runofmine d ON d.rom_id=b.rom_id left JOIN m_driver e
-                                                                 ON e.driver_id=a.driver_id
-                                                        join m_armada f on a.arm_id=f.arm_id GROUP BY trxangkutdtl_id,txangkut_id,a.arm_id,rom_name) e 
-                                                        on a.txangkut_id=e.txangkut_id
-                                                        where a.txangkut_tgl between '$_GET[tg1]' and '$_GET[tg2]' $cust
-                                                        ORDER BY a.txangkut_tgl) as asi","*");
+                          $persediaan = $db->select("(SELECT a.txangkut_tgl,e.rom_name,tujuan_name,concat((case when e.arm_type_armada = 1 then 'DT' else 'SDT' end),'-',norangka,'-',e.arm_nolambung) as armada,rit,tonase,e.driver_name,nosk, rutejarak_jarak 
+FROM `tx_ritase` a JOIN m_site b ON a.id_site=b.id_site 
+JOIN (SELECT a.txangkut_id,c.tujuan_name, d.rom_name, e.driver_name,f.arm_nolambung,SUBSTR(f.arm_norangka,-5) norangka,sum(txangkut_ritase) rit,sum(txangkut_tonase) tonase,f.cust_id,f.arm_type_armada,nosk,b.rutejarak_jarak FROM `tx_ritase_dtl` a JOIN m_rutejarak b ON a.rutejarak_id=b.rutejarak_id JOIN m_tujuan c ON c.tujuan_id=b.tujuan_id JOIN m_runofmine d ON d.rom_id=b.rom_id left JOIN m_driver e ON e.driver_id=a.driver_id
+join m_armada f on a.arm_id=f.arm_id GROUP BY trxangkutdtl_id,txangkut_id,a.arm_id,rom_name) e 
+on a.txangkut_id=e.txangkut_id
+where a.txangkut_tgl between '$_GET[tg1]' and '$_GET[tg2]' $cust
+ ORDER BY a.txangkut_tgl) as asi","*");
+                          
 
                         foreach ($persediaan as $arrdt) {
                               $txangkut_tgl=$arrdt[txangkut_tgl];

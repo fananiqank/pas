@@ -51,7 +51,7 @@ if($_GET[act]=='post'){
 				jenis
 			) 
 			values (
-				'',
+				'0',
 				'$_POST[id_barang]',
 				'$_POST[qty]',
 				'0',

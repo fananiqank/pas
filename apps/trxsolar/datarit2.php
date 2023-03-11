@@ -63,6 +63,9 @@ $columns = array(
 		   'formatter' => function( $d, $row ) {
 		   	$exp = explode("_", $d);
 			// return "<a href='javascript:void(0)' data-tgl=\"$exp[0]\" data-shift=\"$exp[1]\" data-toggle=\"modal\" id=\"detailrh\">Detail</a> | <a href='javascript:void(0)' onclick=\"hapussolar($d)\" >Hapus</a>";
+			
+			// return "<a href='javascript:void(0)' data-tgl=\"$exp[0]\" data-shift=\"$exp[1]\" data-toggle=\"modal\" id=\"detailrh2\">Detail</a> | <a href='javascript:void(0)' onclick=\"hapussolar('$exp[0]','$exp[1]')\" >Hapus</a>";
+
 			return "<a href='javascript:void(0)' data-tgl=\"$exp[0]\" data-shift=\"$exp[1]\" data-toggle=\"modal\" id=\"detailrh2\">Detail</a>";
 			// return "";
 			

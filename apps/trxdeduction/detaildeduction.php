@@ -27,8 +27,8 @@ if($no[c]){
                 <th>No</th>
                 <th>Nama Driver</th>
                 <th>Armada</th>
-                <th>Deduction Aktif</th>
-                <th><?=$ddc['nama_ddc']?></th>
+                <th>Sisa <?=$ddc['nama_ddc']?></th>
+                <th>Input Potongan <?=$ddc['nama_ddc']?></th>
             </tr>
         </thead>
         <tbody>
@@ -38,7 +38,7 @@ if($no[c]){
 $no=1;
 $cust=explode("_",$_POST[cust_id]);
 $p=0;
-$tbl="m_driver a left JOIN m_armada b ON a.driver_armada=b.arm_id left join (SELECT driver_id,id_ddc,(total-bayar) sisa from (
+$tbl="m_driver a left JOIN m_armada b ON a.driver_armada=b.arm_id left join (SELECT driver_id,id_ddc,(COALESCE(total,0)-COALESCE(bayar,0)) sisa from (
 select a.driver_id,b.driver_name,sum(a.tddc_jumlah) total,(select sum(ddcdriver_jumlah) bayar from txdeduction where driver_id=a.driver_id GROUP BY driver_id) as bayar,a.id_ddc 
 from txdeductiontotal a join m_driver b using(driver_id) where a.id_ddc=$_POST[id_ddc] GROUP BY a.driver_id,a.id_ddc) a where driver_id=a.driver_id) c on a.driver_id=c.driver_id where id_site='$_POST[id_site]'";
 // echo "$tbl";

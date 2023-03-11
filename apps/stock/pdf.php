@@ -109,11 +109,12 @@ $pdf->ln(2);
 $pdf->garis3();
 
 $pdf->SetFont('Arial','B',9);
-$pdf->Cell(60,5,"Tanggal",1,0,'C');
-$pdf->Cell(60,5,"No Surat",1,0,'C');
-$pdf->Cell(20,5,"Masuk",1,0,'C');
-$pdf->Cell(20,5,"Keluar",1,0,'C');
-$pdf->Cell(30,5,"Saldo Akhir",1,1,'C');
+$pdf->Cell(35,5,"Tanggal",1,0,'C');
+$pdf->Cell(25,5,"No Surat",1,0,'C');
+$pdf->Cell(80,5,"Keterangan",1,0,'C');
+$pdf->Cell(15,5,"Masuk",1,0,'C');
+$pdf->Cell(15,5,"Keluar",1,0,'C');
+$pdf->Cell(20,5,"Saldo Akhir",1,1,'C');
 
 if($_GET[gd] <> 'A'){
         $gdg = "and id_gudang = $_GET[gd]";
@@ -147,8 +148,8 @@ if($_GET[gd] <> 'A'){
         $totalsdakhir = $awal[sdakhir];
 
         $pdf->SetFont('Arial','B',9);
-        $pdf->Cell(160,5,$judulsaldo,1,0,'L');
-        $pdf->Cell(30,5,$totalsdakhir,1,1,'C');
+        $pdf->Cell(170,5,$judulsaldo,1,0,'L');
+        $pdf->Cell(20,5,$totalsdakhir,1,1,'C');
 
        }else{
         $tglbet = "DATE(tgl_mutasi) between '$ax[tglsaldo]' and '$_GET[tg2]'";
@@ -160,11 +161,14 @@ if($_GET[gd] <> 'A'){
 
         $totalsdakhir = $awal[sdakhir];
 
-        $pdf->SetFont('Arial','B',9);
-        $pdf->Cell(160,5,$judulsaldo,1,0,'L');
-        $pdf->Cell(30,5,$totalsdakhir,1,1,'C');
+        
 
-        $selmut = $db->select("(select no_transmutasi,id_barang,masukmutasi,keluarmutasi,tgl_mutasi,sum(masukmutasi-keluarmutasi) over (ORDER BY tgl_mutasi,no_transmutasi) as sdakhir from tx_mutasi where id_barang=$_GET[id] $gdg and $tglbet and jenisbrg = $_GET[jns]) a","*");
+        $selmut = $db->select("(select no_transmutasi,id_barang,sum(masukmutasi) masukmutasi,sum(keluarmutasi) keluarmutasi,tgl_mutasi,sum(sum(masukmutasi)-sum(keluarmutasi)) over (ORDER BY tgl_mutasi,no_transmutasi) as sdakhir from (
+select 'Saldo Akhir Tanggal Sebelumnya' as no_transmutasi,sum(masukmutasi) masukmutasi,sum(keluarmutasi) keluarmutasi,id_barang,'' as tgl_mutasi 
+from tx_mutasi a where id_barang=68 and a.id_gudang = 2 and jenisbrg = 1 and DATE(tgl_mutasi) < '$_GET[tg1]'
+union 
+select no_transmutasi,sum(masukmutasi) masukmutasi,sum(keluarmutasi) keluarmutasi,id_barang,tgl_mutasi
+from tx_mutasi a where id_barang=68 and a.id_gudang = 2 and jenisbrg = 1 and DATE(tgl_mutasi) between '$_GET[tg1]' and '$_GET[tg2]' GROUP BY no_transmutasi,tgl_mutasi) a GROUP BY no_transmutasi,tgl_mutasi ORDER BY tgl_mutasi) a","*");
        }   
 
     }
@@ -173,17 +177,46 @@ if($_GET[gd] <> 'A'){
       $selawal = $db->select("(select (coalesce(sum(masukmutasi),0)-coalesce(sum(keluarmutasi),0)) sdakhir
            from tx_mutasi where id_barang=$_GET[id] $gdg and $tglbet1 and jenisbrg = $_GET[jns] GROUP BY id_barang) a","*");
 
-      $selmut = $db->select("(select no_transmutasi,id_barang,masukmutasi,keluarmutasi,tgl_mutasi,sum(masukmutasi-keluarmutasi) over (ORDER BY tgl_mutasi,no_transmutasi) as sdakhir from tx_mutasi where id_barang=$_GET[id] $gdg and $tglbet and jenisbrg = $_GET[jns]) a","*");
+      $selmut = $db->select("(select no_transmutasi,id_barang,sum(masukmutasi) masukmutasi,sum(keluarmutasi) keluarmutasi,tgl_mutasi,sum(sum(masukmutasi)-sum(keluarmutasi)) over (ORDER BY tgl_mutasi,no_transmutasi) as sdakhir
+from (
+select 'Saldo Akhir Bulan Sebelumnya' as no_transmutasi,sum(masukmutasi) masukmutasi,sum(keluarmutasi) keluarmutasi,id_barang,'' as tgl_mutasi 
+from tx_mutasi a where id_barang=$_GET[id] $gdg and jenisbrg = $_GET[jns] and concat(YEAR(tgl_mutasi),MONTH(tgl_mutasi)) < concat(YEAR(now()),MONTH(now()))
+union
+select no_transmutasi,sum(masukmutasi) masukmutasi,sum(keluarmutasi) keluarmutasi,id_barang,tgl_mutasi
+from tx_mutasi a where id_barang=$_GET[id] $gdg and jenisbrg = $_GET[jns] and concat(YEAR(tgl_mutasi),MONTH(tgl_mutasi)) = concat(YEAR(now()),MONTH(now())) GROUP BY no_transmutasi,tgl_mutasi) a GROUP BY no_transmutasi,tgl_mutasi ORDER BY tgl_mutasi
+) a","*");
+
     }
 
     foreach($selmut as $mts){
+        if(substr($mts[no_transmutasi], 0,2) == 'MT'){
+            foreach($db->select("tx_maintenance b join m_armada d on b.arm_id=d.arm_id","concat('Maintenance Armada : ',substr(d.arm_norangka,-5),' - ',d.arm_nolambung) as keterangan","no_mtc='$mts[no_transmutasi]'") as $mtc){}
+                $notamutasi = $mts[no_transmutasi];
+                $remarks= $mtc[keterangan];
+        } else if(substr($mts[no_transmutasi], 0,2) == 'BM'){
+            foreach($db->select("tx_barangmasuk","concat('Terima dari Supplier : ',nama_supp) as keterangan,id_brgmasuk","no_brgmasuk='$mts[no_transmutasi]' and substr(no_brgmasuk,1,2) = 'BM'") as $mtc){}
+                $notamutasi = $mts[no_transmutasi];
+                $remarks= $mtc[keterangan];
+        } else if(substr($mts[no_transmutasi], 0,2) == 'SO'){
+            foreach($db->select("tx_stockopname","concat('Stock Opname tgl : ',DATE(inputdt_so)) as keterangan","noso='$mts[no_transmutasi]'") as $mtc){}
+                $notamutasi = $mts[no_transmutasi];
+                $remarks= $mtc[keterangan];
+        } else if(substr($mts[no_transmutasi], 0,2) == 'BK'){
+            foreach($db->select("tx_barangkeluar","concat('Barang Keluar : ',DATE(date_brgkeluar)) as keterangan,id_brgkeluar","no_brgkeluar='$mts[no_transmutasi]'") as $mtc){}
+                $notamutasi = $mts[no_transmutasi];
+                $remarks= $mtc[keterangan];
+        } else {
+            $notamutasi = "-";
+            $remarks = $mts[no_transmutasi];
+        }
 
       $pdf->SetFont('Arial','',9);
-      $pdf->Cell(60,5,$mts[tgl_mutasi],1,0,'L');
-      $pdf->Cell(60,5,$mts[no_transmutasi],1,0,'L');
-      $pdf->Cell(20,5,$mts[masukmutasi],1,0,'C');
-      $pdf->Cell(20,5,$mts[keluarmutasi],1,0,'C');
-      $pdf->Cell(30,5,$mts[sdakhir],1,1,'R');
+      $pdf->Cell(35,5,$mts[tgl_mutasi],1,0,'L');
+      $pdf->Cell(25,5,$notamutasi,1,0,'L');
+      $pdf->Cell(80,5,$remarks,1,0,'L');
+      $pdf->Cell(15,5,$mts[masukmutasi],1,0,'C');
+      $pdf->Cell(15,5,$mts[keluarmutasi],1,0,'C');
+      $pdf->Cell(20,5,$mts[sdakhir],1,1,'R');
         
         $totalmasuk += $mts[masukmutasi];
         $totalkeluar += $mts[keluarmutasi];
@@ -191,14 +224,14 @@ if($_GET[gd] <> 'A'){
     }
 
       $pdf->SetFont('Arial','',9);
-      $pdf->Cell(120,5,"Total",1,0,'R');
-      $pdf->Cell(20,5,$totalmasuk,1,0,'C');
-      $pdf->Cell(20,5,$totalkeluar,1,0,'C');
-      $pdf->Cell(30,5,"",1,1,'C');
+      $pdf->Cell(140,5,"Total",1,0,'R');
+      $pdf->Cell(15,5,$totalmasuk,1,0,'C');
+      $pdf->Cell(15,5,$totalkeluar,1,0,'C');
+      $pdf->Cell(20,5,"",1,1,'C');
 
       $pdf->SetFont('Arial','B',9);
-      $pdf->Cell(120,5,"Stok Akhir",1,0,'R');
-      $pdf->Cell(70,5,$toalsaldo,1,1,'R');
+      $pdf->Cell(140,5,"Stok Akhir",1,0,'R');
+      $pdf->Cell(50,5,$toalsaldo,1,1,'R');
 
 
 

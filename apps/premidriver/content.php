@@ -41,7 +41,6 @@
          <div class="form-group row">
             <label class="col-sm-4 control-label" for="w1-username">Jumlah Premi</label>
             <div class="col-sm-8">
-                
                 <input type="text" class="form-control input-sm" name="premidriver_jumlah" id="premidriver_jumlah">
             </div>
         </div>
@@ -69,6 +68,7 @@
                         <th>Tipe</th>
                         <th>ROM</th>
                         <th>Jumlah</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -78,6 +78,7 @@
                         <th>Tipe</th>
                         <th>ROM</th>
                         <th>Jumlah</th>
+                        <th>Aksi</th>
                     </tr>
                 </tfoot>
             </table>

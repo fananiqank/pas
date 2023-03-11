@@ -101,8 +101,6 @@ if($_GET[act]=='post'){
 
 	//barang masuk
 		foreach($db->select("(select * from tx_mutasi where id_transmutasi='$idbrgkeluar') a","*") as $hgjual){
-
-
 		}
 			
 		$db->query("

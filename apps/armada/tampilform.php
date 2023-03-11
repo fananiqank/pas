@@ -9,8 +9,8 @@
     <div class="form-group row">
         <label class="col-sm-4 control-label" for="w1-username">No Rangka</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control input-sm frhead" name="arm_norangka" id="arm_norangka" required>
-            
+            <input type="hidden" class="form-control input-sm frhead" name="arm_id" id="arm_id">
+            <input type="text" class="form-control input-sm frhead" name="arm_norangka" id="arm_norangka" onblur="ceknorak(this.value,arm_id.value)" required>
         </div>
     </div>
     <div class="form-group row">
@@ -25,7 +25,7 @@
         <label class="col-sm-4 control-label" for="w1-username">Nopol</label>
         <div class="col-sm-8">
             <input type="text" class="form-control input-sm frhead" name="arm_nopol" id="arm_nopol" required>
-            <input type="hidden" class="form-control input-sm frhead" name="arm_id" id="arm_id">
+            
         </div>
     </div>
     

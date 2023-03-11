@@ -28,7 +28,6 @@ if($_GET[act]=='save'){
 			)");
 	} else {
 		$db->query("insert into tx_mekanik (
-				id_mtc,
 				id_mekanik,
 				pekerjaan,
 				biaya,
@@ -36,7 +35,6 @@ if($_GET[act]=='save'){
 				userinput
 			) 
 			values (
-				'$_POST[idmtc]',
 				'$_POST[mekanik]',
 				'$_POST[pekerjaan]',
 				'$_POST[biayamekanik]',

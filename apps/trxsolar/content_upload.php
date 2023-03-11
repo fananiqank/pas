@@ -12,10 +12,10 @@
 <div class="row">
     <div class="col-md-12">
       <div class="form-group row form-inline">
-            <label class="col-sm-2 control-label" for="w1-username">Tgl Transaksi</label>
+            <!-- <label class="col-sm-2 control-label" for="w1-username">Tgl Upload</label>
             <div class="col-sm-3">
                 <input type="date" class="form-control input-sm headmas" name="txsolar_tgl" id="txsolar_tgl" required>
-            </div>
+            </div> -->
             <!-- <label class="col-sm-2 control-label" for="w1-username">Shift</label>
             <div class="col-sm-1">
                 <input type="text" class="form-control input-sm headmas" name="txsolar_shift" id="txsolar_shift" required>
@@ -63,7 +63,8 @@
                  <div id='ck'>
                     <!-- <a class="btn btn-primary" role="button" tabindex="6" id="simpan"><i class="fa fa-save">  Simpan</i></a> -->
                     <button type="button" class="btn btn-info" id="upload">Simpan</button>
-                    
+                    <a href="index.php?x=trxsolar" class="btn btn-warning">
+                    Back</a>
                 </div>
             </div> 
             

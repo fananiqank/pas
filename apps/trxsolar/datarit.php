@@ -44,7 +44,7 @@ $columns = array(
 			return"$d";
 			}
 		  ),
-	array('db'      => 'txsolar_shift','dt'   => 2, 'field' => 'txsolar_shift',
+	array('db'      => 'txsolar_seq','dt'   => 2, 'field' => 'txsolar_seq',
 		   'formatter' => function( $d, $row ) {
 			return"$d";
 			}
@@ -61,7 +61,7 @@ $columns = array(
 		  ),
 	array('db'      => 'txsolar_id','dt'   => 5, 'field' => 'txsolar_id',
 		   'formatter' => function( $d, $row ) {
-			return "<a href='javascript:void(0)' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh\">Detail</a> | <a href='javascript:void(0)' onclick=\"hapussolar($d)\" >Hapus</a>";
+			return "<a href='javascript:void(0)' data-id=\"$d\" data-toggle=\"modal\" id=\"detailrh\">Detail</a> | <a href='javascript:void(0)' onclick=\"hapussolarupd($d)\" >Hapus</a>";
 			// return "";
 			
 					 

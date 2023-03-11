@@ -4,13 +4,11 @@ if($_GET['reload']){
 session_start();
 require_once "../../webclass.php";
 $db = new kelas();
+	$getsupp = $_GET['suppid'];
+} else {
+	$getsupp = $mtc['supp_mtc'];
 }
 
-if($mtc[supp_mtc] != ''){
-	$getsupp = $mtc['supp_mtc'];
-} else {
-	$getsupp = $_GET['suppid'];
-}
 
 echo "<option value=''>Pilih Mekanik</option>";
  foreach($db->select("m_mekanik","*","status_mekanik = 1 and supp_id = '$getsupp'") as $val){

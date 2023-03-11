@@ -86,6 +86,7 @@ function simpanall(){
 
 $(document).ready(function(){
   $('#upload').on('click', function(event){
+    $('#ck').html('<img src="./assets/image/spinner.gif">');
     event.preventDefault();
     var formData = new FormData();
     formData.append('file', $('input[type=file]')[0].files[0]);
@@ -143,13 +144,27 @@ $(document).on('click','#detailrh',function(e){
             );
 });
 
-function hapussolar(a){
+function hapussolar(tgl,shift){
     // alert(a);
-    
-    $.get( "apps/trxsolar/proses.php?act=hapussolar&id="+a, function( data ) {
+    $('#ritasesolar').html('<img src="./assets/image/spinner.gif">');
+    $.get( "apps/trxsolar/proses.php?act=hapussolar&tgl="+tgl+"&shift="+shift, function( data ) {
         // $( ".result" ).html( data );
+
         alert(data);
-        $('#ritasesolar').DataTable().ajax.reload();
+        //$('#ritasesolar').DataTable().ajax.reload();
+        window.location.reload();
+    });
+}
+
+function hapussolarupd(id){
+    // alert(a);
+    $('#ritasesolar').html('<img src="./assets/image/spinner.gif">');
+    $.get( "apps/trxsolar/proses.php?act=hapussolarupd&id="+id, function( data ) {
+        // $( ".result" ).html( data );
+
+        alert(data);
+        //$('#ritasesolar').DataTable().ajax.reload();
+        window.location.reload();
     });
 }
 

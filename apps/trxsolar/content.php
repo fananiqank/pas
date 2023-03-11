@@ -33,23 +33,14 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Tanggal</th>
-                        <th>Shift</th>
+                        <th>Tanggal <?php if($_GET[fl]==2){echo "Transaksi";}else{echo "Upload";}?></th>
+                        <th><?php if($_GET[fl]==2){echo "Shift";}else{echo "Upload Ke";}?></th>
                         <th>Total Liter</th>
                         <th>Total Harga</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>ID</th>
-                        <th>Tanggal Upload</th>
-                        <th>Shift</th>
-                        <th>Total Liter</th>
-                        <th>Total Harga</th>
-                        <th>Aksi</th>
-                    </tr>
-                </tfoot>
+                
             </table>
         </div>
          

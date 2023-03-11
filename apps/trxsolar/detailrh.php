@@ -12,7 +12,7 @@ foreach($db->select("(SELECT * FROM `tx_solar`where txsolar_id='$_GET[id]') a","
         <thead>
             <tr>
                 <th colspan="2">Tanggal Upload</th>
-                <th colspan="6"><?=$val2[txsolar_tgl]?></th>
+                <th colspan="6"><?=$val2[txsolar_tgl]." | Upload Ke - ".$val2[txsolar_seq]?></th>
             </tr>
             
             <tr>

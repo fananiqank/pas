@@ -44,7 +44,8 @@ $cekhead = $db->selectcount("tx_barangmasuk","no_brgmasuk as jmlmasuk","status_b
     <div class="row">
         <div class="col-lg-12" id='ck' style="margin-top: 5px;" align="center">
                 <!-- <a class="btn btn-primary" role="button" tabindex="6" id="simpan"><i class="fa fa-save">  Simpan</i></a> -->
-            <button type="submit" class="btn btn-info" id="simpan" style="font-size: 12px;">Simpan</button>
+            <!-- <button type="submit" class="btn btn-info" id="simpan" style="font-size: 12px;">Simpan</button> -->
+            <a href="javascript:void(0)" class="btn btn-info" style="font-size: 12px;" onclick="simpandata()">Simpan</a>
         </div>
     </div>
 </form>

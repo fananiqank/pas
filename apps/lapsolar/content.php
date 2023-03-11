@@ -75,14 +75,21 @@
                         <th>Rangka-Lambung</th>
                         <th>Driver</th>
                         <th>Supplier</th>
-                        <th>Liter</th>
                         <th>Harga /Liter</th>
+                        <th>Liter</th>
                         <th style="text-align: center;">Total</th>
                     </tr>
                 </thead>
                 <tfoot align="right">
                     <tr>
-                        <th colspan="8"></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                         <th></th>
                     </tr>
                 </tfoot>

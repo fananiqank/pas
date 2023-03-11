@@ -83,10 +83,14 @@ if(isset($_FILES['file']['name']) && in_array($_FILES['file']['type'], $file_mim
     if($error==1){
     	echo $msg;	
     } else {
+    	$datenow=date('Y-m-d');
+    	foreach($db->select("tx_solar","max(txsolar_seq) mx","txsolar_tgl = '$datenow'") as $jumhead){}
+    	$solarseq = $jumhead['mx']+1;
     	$data=array(
-					"txsolar_tgl"=>$_POST[txsolar_tgl],
+    				"txsolar_tgl"=>$datenow,
 					"txsolar_user"=>$_SESSION[ID_PEG],
-					"txsolar_site"=>$_POST[id_site],
+					"id_site"=>$_POST[id_site],
+					"txsolar_seq" => $solarseq
 				);
 		$in=$db->insertID("tx_solar",$data);
 
