@@ -98,6 +98,17 @@ function getLambung(a){
 
     });
 }
+function ceknorak(val,armid){
+    if(armid == ''){
+        $.get( "apps/armada/ceknorak.php?val="+val+"&armid="+armid, function( data ) {
+            if(data > 0){
+                alert("No Rangka Sudah Terdaftar!");
+                $('#arm_norangka').val("");
+                $('#arm_norangka').focus();
+            }
+        });
+    }
+}
 function cekMerk(val) {
   $('#arm_type').load("apps/armada/tampiltype.php?merk="+val);
 }

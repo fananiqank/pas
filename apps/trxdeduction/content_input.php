@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="form-group row form-inline">
-            <label class="col-sm-2 control-label" for="w1-username">Dedeuction</label>
+            <label class="col-sm-2 control-label" for="w1-username">Deduction</label>
             <div class="col-sm-3">
                 <select class="select2 form-control block headmas" id="id_ddc" name="id_ddc" required>
                     <?php include "tampildeduction.php"; ?>

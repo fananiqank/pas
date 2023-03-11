@@ -11,16 +11,18 @@ function typeFormInp (val) {
 }
 
 
-$(document).ready(function(){
-    $("#simpan").click(function(){
+// $(document).ready(function(){
+//     $("#simpan").click(function(){
+function simpandata(){
 
         if($('#date_brgmasuk').val() == '' || $('#nama_supp').val() == '' || $('#no_sj').val() == '' || $('#id_gudang').val() == ''){
           alert("Data Tidak Lengkap");
         } else {
-            $('#form input,#form select, #form select2 , #form textarea').jqBootstrapValidation({
-                preventSubmit: true,
-                submitSuccess: function($form, event){     
-                    event.preventDefault();
+            
+            // $('#form input,#form select, #form select2 , #form textarea').jqBootstrapValidation({
+            //     preventSubmit: true,
+            //     submitSuccess: function($form, event){     
+            //         event.preventDefault();
                     $('#typeform').val(2);
                     var data = $('#form').serializeFormJSON();        
                     $('#prosesloading').html('<img src="../assets/images/loading.gif">');
@@ -38,18 +40,19 @@ $(document).ready(function(){
                            window.location.reload();
                         }
                     );
-              },
-              submitError: function ($form, event, errors) { 
-                 //alert("Data Belum Lengkap");
-             }
-            });
-        }
-     });    
-});
+        //       },
+        //       submitError: function ($form, event, errors) { 
+        //          //alert("Data Belum Lengkap");
+        //      }
+        //     });
+         }
+     }
+//      );    
+// });
 
 function simpandetail (){
   if($('#qty').val() == '' || $('#harga').val() == ''){
-    alert("Data Tidak Lengkap");
+    alert("Qty / Harga Harus diisi");
 
   } else {
     $('#typeform').val(1);

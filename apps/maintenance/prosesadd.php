@@ -59,7 +59,6 @@ if($_GET[act]=='post'){
 				'$_POST[jenis]'
 			)");
 	
-	
 	}
 } else if($_GET[act]=='get'){
 	$dt=$db->select("m_tarif","*","tarif_id='$_GET[id]'");

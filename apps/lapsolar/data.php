@@ -97,6 +97,7 @@ $columns = array(
 					 
 			}
 		  ),
+	
 	array('db'      => 'txsolardtl_harga','dt'   => 6, 'field' => 'txsolardtl_harga',
 		   'formatter' => function( $d, $row ) {
 			$bbiaya = number_format($d);
@@ -140,16 +141,13 @@ $sql_details = array(
 // require( 'ssp.class.php' );
 require('../../lib/ssp.customized.class.php' );
 
-$joinQuery = "FROM (SELECT @rownum:=@rownum+1 norut, c.*, b.nama_site,
-    d.driver_name,e.arm_nolambung,f.supp_nama,a.txsolardtl_liter,a.txsolardtl_harga,
-    a.txsolardtl_total,a.txsolardtl_petugas,a.txsolardtl_tgltrans,a.txsolardtl_shift
-    FROM tx_solar_dtl a 
-    JOIN tx_solar c ON a.txsolar_id=c.txsolar_id 
-    JOIN m_site b ON c.id_site=b.id_site 
-    LEFT JOIN m_driver d on a.driver_id=d.driver_id 
-    LEFT JOIN m_armada e on a.arm_id=e.arm_id 
-    LEFT JOIN m_supplier f on a.supp_id=f.supp_id JOIN (SELECT @rownum:=0) r where 
-    txsolardtl_tgltrans between '$_GET[tgl1]' and '$_GET[tgl2]' $shift $armada $driverid $suppid) a ";
+$joinQuery = "FROM (SELECT @rownum:=@rownum+1 norut, a.*,
+    d.driver_name,e.arm_nolambung,f.supp_nama
+    FROM tx_solar_dtl a  
+    JOIN m_driver d on a.driver_id=d.driver_id 
+    JOIN m_armada e on a.arm_id=e.arm_id 
+    JOIN m_supplier f on a.supp_id=f.supp_id JOIN (SELECT @rownum:=0) r where 
+    txsolardtl_tgltrans between ('$_GET[tgl1]') and ('$_GET[tgl2]') $shift $armada $driverid $suppid) a ";
 $extraWhere = "";        
 
 //echo $joinQuery;

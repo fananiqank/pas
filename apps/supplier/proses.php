@@ -28,28 +28,25 @@ if($_GET[act]=='post'){
 			supp_notelp='$_POST[supp_notelp]',
 			supp_status='$_POST[supp_status]',
 			supp_type='$_POST[supp_type]',
-			supp_kode='$_POST[supp_kode]',
+			supp_kode='$_POST[supp_kode]'
 		");
 
 foreach($db->select("m_supplier","max(supp_id) maxsupid") as $spi){}
 
-	$db->query("
-		insert into m_mekanik (
-			name_mekanik,
-			alamat_mekanik,
-			telp_mekanik,
-			supp_id
-		) VALUES (
-			'$_POST[supp_nama]',
-			'$_POST[supp_alamat]',
-			'$_POST[supp_notelp]',
-			'$spi[maxsupid]'
-		) ON DUPLICATE KEY UPDATE 
-			name_mekanik='$_POST[supp_nama]',
-			alamat_mekanik='$_POST[supp_alamat]',
-			telp_mekanik='$_POST[supp_notelp]',
-			
-		");
+	if($_GET[supp_id] == '' && $_POST[supp_type] == 2){
+		$db->query("
+			insert into m_mekanik (
+				name_mekanik,
+				alamat_mekanik,
+				telp_mekanik,
+				supp_id
+			) VALUES (
+				'$_POST[supp_nama]',
+				'$_POST[supp_alamat]',
+				'$_POST[supp_notelp]',
+				'$suppid'
+			)");
+	}
 		
 	
 	

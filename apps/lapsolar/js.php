@@ -23,7 +23,6 @@ if($('#tgl1').val()){
             };
  
             // computing column Total of the complete result 
-            
             var biayaTotal = api
                 .column( 7 )
                 .data()
@@ -83,6 +82,8 @@ if($('#tgl1').val()){
                          render: $.fn.dataTable.render.number(',', '.',0, '') },
                        { targets: [7], className: 'dt-body-right',
                          render: $.fn.dataTable.render.number(',', '.',0, '') },
+                       { targets: [6], className: 'dt-body-right',
+                         render: $.fn.dataTable.render.number(',', '.',0, '') },
                        { targets: [0], className: 'dt-body-center' }],
         
 
@@ -122,7 +123,7 @@ function trtarget(tgl1,tgl2,shift,armid,driverid,suppid){
     if(tgl1 == ''){
         alert("Pilih Periode!!");
     } else {
-        window.location.assign("index.php?x=lapsolar&&tgl1="+tgl1+"&tgl2="+tgl2+"&shift="+shift+"&armid="+armid+"&driverid="+driverid+"&suppid="+suppid);
+        window.location.assign("index.php?x=lapsolar&tgl1="+tgl1+"&tgl2="+tgl2+"&shift="+shift+"&armid="+armid+"&driverid="+driverid+"&suppid="+suppid);
     }
 }
 

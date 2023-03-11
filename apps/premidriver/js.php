@@ -55,4 +55,15 @@ function getEdit(a){
     });
     
 }
+
+function deleted(id){
+    var result = confirm("Want to delete?");
+      if (result==true) {
+       $.get( "apps/premidriver/proses.php?act=del&id="+id, function( data ) {
+            alert("Data terhapus!");
+            location.reload();
+        });
+      } 
+  } 
+
 </script>

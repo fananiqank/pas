@@ -35,4 +35,7 @@ if($_GET[act]=='post'){
 	$dt=$db->select("m_premidriver","*","premidriver_id='$_GET[id]'");
 	echo json_encode($dt);
 
+} else if($_GET[act]=='del'){
+	$db->query("delete from m_premidriver where premidriver_id='$_GET[id]'");
+	
 }

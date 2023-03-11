@@ -71,4 +71,24 @@ txsolardtl_tgl,txsolardtl_petugas,supp_id,txsolardtl_shift,txsolardtl_tgltrans) 
 	}
 	// echo json_encode($dt);
 
+} else if($_GET[act]=='hapussolarupd'){
+	foreach($db->select("tx_solar","*","txsolar_id = '$_GET[id]'") as $hrem){
+		$db->query("insert into tx_solar (txsolar_id,txsolar_tgl,txsolar_user,id_site,txsolar_input,txsolar_seq) 
+			values ('$hrem[txsolar_id]','$hrem[txsolar_tgl]','$hrem[txsolar_user]','$hrem[id_site]','$hrem[txsolar_input]','$hrem[txsolar_seq]')");	
+	}
+	$selhps = $db->select("tx_solar_dtl","*","txsolar_id = '$_GET[id]'");
+	foreach($selhps as $hps){
+		$db->query("insert into tx_solar_dtl_rem (txsolardtl_id,txsolar_id,arm_id,driver_id,txsolardtl_liter,txsolardtl_harga,txsolardtl_total,
+		txsolardtl_tgl,txsolardtl_petugas,supp_id,txsolardtl_shift,txsolardtl_tgltrans) values ('$hps[txsolardtl_id]','$hps[txsolar_id]','$hps[arm_id]','$hps[driver_id]','$hps[txsolardtl_liter]','$hps[txsolardtl_harga]','$hps[txsolardtl_total]','$hps[txsolardtl_tgl]','$hps[txsolardtl_petugas]','$hps[supp_id]','$hps[txsolardtl_shift]','$hps[txsolardtl_tgltrans]')");	
+	}
+	
+	$dt=$db->delete("tx_solar",array("txsolar_id"=> $_GET[id]));
+	$dt2=$db->delete("tx_solar_dtl",array("txsolar_id"=> $_GET[id]));
+	if($dt){
+		echo "Telah Dihapus";
+	} else {
+		echo "Gagal";
+	}
+	// echo json_encode($dt);
+
 }
