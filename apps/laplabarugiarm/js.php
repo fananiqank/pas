@@ -1,65 +1,7 @@
 <!-- <script type="text/javascript" src="../../app-assets/js/script/pdfmake.min.js"></script>
 <script type="text/javascript" src="../../app-assets/js/script/vfs_fonts.js"></script> -->
 <script type="text/javascript">
-$('.server-side').DataTable( {
-        "processing": true,
-        "serverSide": true,
-        //"ajax": "../server_side/scripts/server_processing.php" NOTE: use serverside script to fatch the data
-        "ajax": "apps/lapmekanik/datarit.php"
-    } );
-//alert($('#tglon').val());
-if($('#bpbulan').val()){
-    //alert($('#tglon').val());
-     $('#tablelaru').DataTable( {
-        "processing": true,
-        "serverSide": true,
-        "paging":false,
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'excel',
-                footer: true,
-                exportOptions: {
-                columns: ':visible'
-                },
-                title: 'Laporan Laba Rugi Periode : '+$('#bpbulan').val()+'-'+$('#bptahun').val(),
-            },
-            {
-                extend: 'pdf',
-                footer: true,
-                exportOptions: {
-                columns: ':visible'
-                },
-                title: 'Laporan Laba Rugi Periode : '+$('#bpbulan').val()+'-'+$('#bptahun').val(),
-            },
-            {
-                extend: 'print',
-                footer: true,
-                exportOptions: {
-                columns: ':visible'
-                },
-                title: 'Laporan Laba Rugi Periode : '+$('#bpbulan').val()+'-'+$('#bptahun').val(),
-            },
-           // 'copy', 'csv', 'print','excel',
-        ],
-        //"ajax": "../server_side/scripts/server_processing.php" NOTE: use serverside script to fatch the data
-        "ajax": "apps/lapmekanik/data.php?bln="+$('#bpbulan').val()+"&thn="+$('#bptahun').val()+"&armid="+$('#arm_id').val(),
-        // "columnDefs": [{ targets: [7], className: 'dt-body-right',
-        //                  render: $.fn.dataTable.render.number(',', '.',0, '') },
-        //                { targets: [0], className: 'dt-body-center' }],
-        
 
-                           
-    } );
-} 
-// else {
-//     $('#lapmekanik').DataTable( {
-//         "processing": true,
-//         "serverSide": true,
-//         //"ajax": "../server_side/scripts/server_processing.php" NOTE: use serverside script to fatch the data
-//         "ajax": "apps/lapmekanik/data.php"
-//     } );
-// }
 
 
 $(document).on('click','#detailrh',function(e){

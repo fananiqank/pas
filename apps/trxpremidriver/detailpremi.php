@@ -10,6 +10,7 @@ foreach($db->select("`trx_basicpremi_driver` where (('$_POST[txangkut_tgl1]' bet
 
 if($no[c]){
     echo "Terdapat Periode Yang Pernah di posting";
+    
 } else {
 ?>
 
@@ -31,7 +32,7 @@ if($no[c]){
 </div>
 <?php
 $no=1;
-$cust=explode("_",$_POST[cust_id]);
+$cust=explode("_",$_POST['cust_id']);
 $p=0;
 
 // foreach($db->select("tx_invoice where '$_POST[tglmulai]' between inv_periode1 and inv_periode2 or '$_POST[tglmulai]' between inv_periode1 and inv_periode2","count(*) as ck") as $vk){}
@@ -89,10 +90,10 @@ foreach($db->select("$tbl","a.*, b.driver_name, c.rutename") as $val){
                 <td align='right'>".number_format($val[tpremi],2)."</td>
             </tr>";
     $no++;
-    if($val[tipegaji]=='Basic'){
-    $tbas+=$val[tpremi];} else {
-    $tpre+=$val[tpremi];}
-    $subt+=$val[tpremi];
+    if($val['tipegaji']=='Basic'){
+    $tbas+=$val['tpremi'];} else {
+    $tpre+=$val['tpremi'];}
+    $subt+=$val['tpremi'];
 }
 ?>          
             <tr>

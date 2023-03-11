@@ -37,6 +37,14 @@ if($vk[ck]>0){
 //  JOIN m_runofmine c ON c.rom_id=b.rom_id
 //  JOIN m_tujuan d ON d.tujuan_id=b.tujuan_id
 //  group by rutejarak_id, tarif, periode";
+
+// echo "select * from (SELECT a.rutejarak_id, concat(rom_name,' - ',tujuan_name) as uraian, sum(txangkut_tonase) ton, sum(txangkut_ritase) ritase,sum(txangkut_jarak) jarak, tarif, group_concat(trxangkutdtl_id) as idtxangkut_dtl,periode FROM (SELECT a.txangkut_tgl, case when day(a.txangkut_tgl)<=15 then 1 else 2 end as periode, (select tarif_harga from m_tarif where cust_id=c.cust_id and type_armada=c.arm_type_armada and a.txangkut_tgl>=tarif_tglmulai order by tarif_id desc limit 1) as tarif, b.* FROM `tx_ritase` a JOIN tx_ritase_dtl b using (txangkut_id) 
+// JOIN m_armada c ON c.arm_nolambung=b.txangkut_nolambung
+// where txangkut_tgl between '$_POST[tglmulai]' and '$_POST[tglakhir]' and left(b.txangkut_nolambung,3)='$cust[1]' and arm_type_armada='$_POST[arm_type_armada]' ) a 
+// JOIN m_rutejarak b ON a.rutejarak_id=b.rutejarak_id
+// JOIN m_runofmine c ON c.rom_id=b.rom_id
+// JOIN m_tujuan d ON d.tujuan_id=b.tujuan_id
+// group by rutejarak_id, tarif, periode) a";
 foreach($db->select("(SELECT a.rutejarak_id, concat(rom_name,' - ',tujuan_name) as uraian, sum(txangkut_tonase) ton, sum(txangkut_ritase) ritase,sum(txangkut_jarak) jarak, tarif, group_concat(trxangkutdtl_id) as idtxangkut_dtl,periode FROM (SELECT a.txangkut_tgl, case when day(a.txangkut_tgl)<=15 then 1 else 2 end as periode, (select tarif_harga from m_tarif where cust_id=c.cust_id and type_armada=c.arm_type_armada and a.txangkut_tgl>=tarif_tglmulai order by tarif_id desc limit 1) as tarif, b.* FROM `tx_ritase` a JOIN tx_ritase_dtl b using (txangkut_id) 
     JOIN m_armada c ON c.arm_nolambung=b.txangkut_nolambung
     where txangkut_tgl between '$_POST[tglmulai]' and '$_POST[tglakhir]' and left(b.txangkut_nolambung,3)='$cust[1]' and arm_type_armada='$_POST[arm_type_armada]' ) a 
